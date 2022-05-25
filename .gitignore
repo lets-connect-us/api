@@ -1,3 +1,22 @@
+#mine
+**/package-lock.json
+**/*.log
+**/dev_tools
+**/composer
+node_modules
+**/node_modules
+jspm_packages
+**/jspm_packages
+**/static
+*.php.log
+IndexerVolumeGuid
+*.zip
+*.tar.gz
+*.tgz
+**/db_credentials.js
+**/secret.txt
+#mine
+
 # Logs
 logs
 *.log
@@ -39,7 +58,9 @@ build/Release
 
 # Dependency directories
 node_modules/
+**/node_modules/
 jspm_packages/
+**/jspm_packages/
 
 # TypeScript v1 declaration files
 typings/
