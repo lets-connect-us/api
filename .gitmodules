@@ -1,3 +1,6 @@
 [submodule "shared_code"]
 	path = shared_code
 	url = git@ssh.dev.azure.com:v3/Simon-Le-Pine/shared_code/shared_code
+[submodule "dev_tools"]
+	path = dev_tools
+	url = git@ssh.dev.azure.com:v3/Simon-Le-Pine/dev_tools/dev_tools
