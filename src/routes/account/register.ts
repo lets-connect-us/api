@@ -9,7 +9,8 @@ class register {
   }
 
   test_func() {
-    console.log(test.test_func(this));
+    console.log('test');
+    console.log(globalThis.server);
     return true;
   }
 }

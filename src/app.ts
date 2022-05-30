@@ -1,6 +1,9 @@
 import 'module-alias/register';
 import * as dotenv from "dotenv";
 
+require ('./base.inc');
+require ('./constants.inc');
+
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
