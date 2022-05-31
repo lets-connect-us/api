@@ -1,17 +1,50 @@
-class test {
-  public server;
+import axios from 'axios';
 
-  constructor() {
-  }
 
-  test_func(pointer='') {
-    console.log(pointer);
-    return true;
-  }
+/**
+ * //class to call a microservice
+ */
+class microservice {
+
+/*
+ * init data store
+ */
+public base_url = 'http://127.0.0.1:8000/';
+public then_function={};
+protected last_result = {};
+protected success=0;
+
+/*
+ * //function to construct
+ */
+constructor() {
+
+/*
+ * done //function
+ */
 }
 
-test = new test;
-export default test;
+/*
+ * //function to execute a call
+ */
+call(
+	values=''
+){
+console.log(values);
+return true;
+
+/*
+ * done //function
+ */
+}
+
+/*
+ * done //class
+ */
+}
+
+microservice = new microservice;
+export default microservice;
 
 /**
  * 
@@ -41,7 +74,7 @@ async function getUsers() {
 
     console.log(JSON.stringify(data, null, 4));
 
-    // 👇️ "response status is: 200"
+    //"response status is: 200"
     console.log('response status is: ', status);
 
     return data;

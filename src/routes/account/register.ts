@@ -1,4 +1,6 @@
 import 'module-alias/register';
+import microservice from "@classes/microservice";
+
 import test from "@classes/test";
 
 class register {

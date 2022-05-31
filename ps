@@ -32,7 +32,10 @@ git add -f **/scheduled_jobs/*
 if [ -f "file_head.inc.php" ]; then
 	git add -f "file_head.inc.php"
 fi
-if [ -f "run" ]; then
+if [ -f "ps" ]; then
+	git add -f run
+fi
+if [ -f "pl" ]; then
 	git add -f run
 fi
 if [ -f "server_scripts.ini" ]; then
