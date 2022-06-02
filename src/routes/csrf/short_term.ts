@@ -39,6 +39,9 @@ entry_point(
  * 	"signature" is expiry timestamp
  * Verify/validate short term CSRF
  * 
+ * Edit base.inc.php to skip /API anf /forbidden_dir if they do not exist. Then we can use dev_tools on node servers
+ * Deploy http://dev-tools on the local network
+ * 
 
 console.log(values['request']['body']);
 return values['request']['body'];
