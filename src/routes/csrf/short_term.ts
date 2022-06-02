@@ -6,14 +6,13 @@ import microservice from "~classes/microservice";
 import csrf from "~classes/csrf";
 
 /**
- * //class to handle API /register end-point
+ * //class to handle API /csrf/short-term end-point
  */
-class register {
+class short_term {
 
 /*
  * init data store
  */
-public us_email: String = '';
 
 /*
  * //function to construct
@@ -32,14 +31,14 @@ entry_point(
 	values=''
 ) {
 
-this['us_email'] = values['body']['us_email'];
-this['pazz'] = values['body']['pazz'];
 
 /**
-microservice.call({
-	'url' : 'test', 
-});
-*/
+ * //leftoff:
+ * finishing writing short term CSRF
+ * 	should include IP and url.
+ * 	"signature" is expiry timestamp
+ * Verify/validate short term CSRF
+ * 
 
 console.log(values['request']['body']);
 return values['request']['body'];
@@ -54,4 +53,4 @@ return values['request']['body'];
  */
 }
 
-export default register;
+export default short_term;

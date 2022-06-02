@@ -15,8 +15,12 @@ import helmet from "helmet";
  * //leftoff //debug import vars
  */ 
 import test from "~classes/test";
-import register from "~routes/account/register";
-register = new register;
+
+/**
+ * import routes
+ */
+import routes_register from "~routes/account/register";
+import routes_short_term from "~routes/csrf/short_term";
 
 /**
  * init app
@@ -34,25 +38,39 @@ if (!process.env.PORT) {
 const PORT: number = parseInt(process.env.PORT as string, 10);
 app.set("port", process.env.PORT || 3000);
 
+/*
+ * setup app functions
+ */
 app.use(helmet());
 app.use(cors());
-// parse application/x-www-form-urlencoded
 app.use(body_parser.urlencoded({ extended: false }));
-// parse application/json
 app.use(body_parser.json());
+
 /*
-app.use(function (req, res) {
-  res.setHeader('Content-Type', 'text/plain')
-  res.write('you posted:\n')
-  res.end(JSON.stringify(req.body, null, 2))
+ * get a short term CSRF
+ * We use this for login, register, reset, etc. Before the user is authenticated they get a 10-minute window to perform their action
+ */
+app.post('/csrf/short_term', (request, result) => {
+	let short_term = new routes_short_term;
+    result.send(
+		short_term.entry_point({
+			'body': request['body'], 
+			'request': request, 
+			'result': result
+		})
+	);
 });
+
 
 /*
  * register
+ * //debug change back to app.post
  */
 app.all('/register', (request, result) => {
+	let register = new routes_register;
     result.send(
 		register.entry_point({
+			'body': request['body'], 
 			'request': request, 
 			'result': result
 		})

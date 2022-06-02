@@ -16,6 +16,11 @@ public debug_timestamp=0;
 private secret: string = '';
 private internal_hash: string = '';
 private internal_hash_old: string = '';
+private short_term_urls: Object = {
+	'/register': 1, 
+	'/login': 1, 
+	'/reset': 1
+};
 
 /*
  * //function to construct
@@ -42,7 +47,7 @@ if (
 	console.log('Environment SECRET is required but is not available.');
 	return false;
 }
-this.secret = process.env.SECRET;
+this.secret = process.env.SECRET + ' ' + process.env.ENVIRONMENT
 
 /*
  * generate internal hash for microservice calls
