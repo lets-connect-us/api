@@ -1,20 +1,55 @@
 import 'module-alias/register';
-import microservice from "@classes/microservice";
 
-import test from "@classes/test";
+import { Request, Response, NextFunction } from "express";
 
+import microservice from "~classes/microservice";
+import csrf from "~classes/csrf";
+
+/**
+ * //class to handle API /register end-point
+ */
 class register {
-  public server;
 
-  constructor() {
-	  
-  }
+/*
+ * init data store
+ */
+public server;
 
-  test_func() {
-    console.log('test');
-    console.log(globalThis.server);
-    return true;
-  }
+/*
+ * //function to construct
+ */
+constructor() {
+
+/*
+ * done //function
+ */
+}
+
+/*
+ * //function to be the primary entry point
+ */
+entry_point(
+	values=''
+) {
+
+
+/**
+microservice.call({
+	'url' : 'test', 
+});
+*/
+
+console.log(values['request']['body']);
+return values['request']['body'];
+
+/*
+ * done //function
+ */
+}
+
+/*
+ * done //class
+ */
 }
 
 export default register;

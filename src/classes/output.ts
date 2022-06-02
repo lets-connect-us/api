@@ -1,4 +1,4 @@
-class test {
+class output {
   public server;
 
   constructor() {
@@ -10,5 +10,5 @@ class test {
   }
 }
 
-test = new test;
-export default test;
+output = new output;
+export default output;
