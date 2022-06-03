@@ -1,3 +1,9 @@
+/** 
+ * //leftoff //debug import vars
+ */ 
+import output from "~classes/output";
+let output = new output;
+
 class test {
   public server;
 
@@ -5,7 +11,7 @@ class test {
   }
 
   test_func(pointer='') {
-    console.log(pointer);
+    console.log('TEST');
     return true;
   }
 }

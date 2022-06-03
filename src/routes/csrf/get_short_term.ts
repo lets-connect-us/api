@@ -1,36 +1,67 @@
 import 'module-alias/register';
-
 import { Request, Response, NextFunction } from "express";
+var session = require('express-session');
 
+/*
+ * import classes
+ */
 import microservice from "~classes/microservice";
 import csrf from "~classes/csrf";
+import classes_output from "~classes/output";
+const output = new classes_output;
 
 /**
  * //class to handle API /csrf/short-term end-point
  */
-class short_term {
+class get_short_term {
 
-/*
+/**
  * init data store
  */
 
-/*
+/**
  * //function to construct
  */
 constructor() {
 
-/*
+/**
  * done //function
  */
 }
 
-/*
+/**
  * //function to be the primary entry point
  */
 entry_point(
 	values=''
 ) {
 
+/*
+ * init session store
+ */
+if (
+	(typeof values == 'object')
+	&&
+	(typeof values['request'] == 'object')
+){
+	output.init_session(values['request']);
+}
+
+//leftoff check if token is already set
+
+/*
+ * get a new token
+ */
+csrf.get_short_term({
+	'ip_addr': values['request'].socket['remoteAddress'], 
+	'url': values['request']['query']['url'] || values['request']['body']['url'] || '', 
+	'browser_token': values['request']['query']['browser_token'] || values['request']['body']['browser_token'] || '', 
+});
+
+//values['request'].headers['cf-connecting-ip']
+console.log('START');
+console.log(values['request'].session);
+console.log('FINISH');
 
 /**
  * //leftoff:
@@ -46,14 +77,14 @@ entry_point(
 console.log(values['request']['body']);
 return values['request']['body'];
 
-/*
+/**
  * done //function
  */
 }
 
-/*
+/**
  * done //class
  */
 }
 
-export default short_term;
+export default get_short_term;

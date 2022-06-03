@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "5c387481-7533-494d-87eb-9befe93078f7",
+		"name": "/account",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21230295"
+	},
+	"item": [
+		{
+			"name": "/register -> Invalid Email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://scheduled-dev:8000/register?us_email=test&pazz=password2023!!!",
+					"protocol": "http",
+					"host": [
+						"scheduled-dev"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "us_email",
+							"value": "test"
+						},
+						{
+							"key": "pazz",
+							"value": "password2023!!!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/register -> Valid New Email",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let random = +new Date();",
+							"",
+							"pm.globals.set(\"email\", `${random}@test.com`);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Result is HTTP 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check that it returns an array\", function () {",
+							"  var jsonData = pm.response.json();",
+							"  pm.expect(jsonData).to.be.an(\"array\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "us_email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "pazz",
+							"value": "password123!!",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://scheduled-dev:8000/register",
+					"protocol": "http",
+					"host": [
+						"scheduled-dev"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/register -> Existing Email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://scheduled-dev:8000/register?us_email=user@test.com&pazz=password2023!!!",
+					"protocol": "http",
+					"host": [
+						"scheduled-dev"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "us_email",
+							"value": "user@test.com"
+						},
+						{
+							"key": "pazz",
+							"value": "password2023!!!"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "us_email",
+			"value": ""
+		}
+	]
+}

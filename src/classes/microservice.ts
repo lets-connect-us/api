@@ -7,7 +7,7 @@ import csrf from '~classes/csrf';
  */
 class microservice {
 
-/*
+/**
  * init data store
  */
 public base_url = 'http://127.0.0.1:8000/';
@@ -15,17 +15,17 @@ public then_function={};
 protected last_result = {};
 protected success=0;
 
-/*
+/**
  * //function to construct
  */
 constructor() {
 
-/*
+/**
  * done //function
  */
 }
 
-/*
+/**
  * //function to execute a call
  */
 async call(
@@ -35,12 +35,12 @@ async call(
 console.log(csrf.debug_timestamp);
 //csrf.test_func('TEST');
 
-/*
+/**
  * reset success
  */
 this.success=0;
 
-/*
+/**
  * confirm we have data
  */
 if (
@@ -56,7 +56,7 @@ if (
 }
 let url = this.base_url + '/' + values['url'];
 
-/*
+/**
  * try Axios API call
  */
 try {
@@ -85,12 +85,12 @@ if (axios.isAxiosError(error)) {
 }
 }
 
-/*
+/**
  * done //function
  */
 }
 
-/*
+/**
  * done //class
  */
 }

@@ -10,22 +10,22 @@ import csrf from "~classes/csrf";
  */
 class register {
 
-/*
+/**
  * init data store
  */
 public us_email: String = '';
 
-/*
+/**
  * //function to construct
  */
 constructor() {
 
-/*
+/**
  * done //function
  */
 }
 
-/*
+/**
  * //function to be the primary entry point
  */
 entry_point(
@@ -44,12 +44,12 @@ microservice.call({
 console.log(values['request']['body']);
 return values['request']['body'];
 
-/*
+/**
  * done //function
  */
 }
 
-/*
+/**
  * done //class
  */
 }

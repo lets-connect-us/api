@@ -1,14 +1,137 @@
+var session = require('express-session');
+
+/**
+ * //class to store and handle output
+ */
 class output {
-  public server;
 
-  constructor() {
-  }
+/**
+ * init data storage
+ */
+public success: int = 0;
+public message: Object = {
+	'error': [], 
+	'info': [], 
+	'success': [], 
+}
+public result=''; //note we specifically do not specify a type for result since it can be string, array, object, etc
 
-  test_func(pointer='') {
-    console.log(pointer);
-    return true;
-  }
+
+/**
+ * //function to construct 
+ */
+constructor(
+	values=''
+){
+
+/**
+ * done //function
+ */
 }
 
-output = new output;
+/**
+ * init session
+ */
+init_session(
+	request=''
+){
+
+/*
+ * confirm we have data
+ */
+if (typeof request != 'object'){
+	//leftoff write and use len[gth] here too
+	return false;
+}
+
+/*
+ * init session response object
+ */
+if (
+	(typeof request == 'object')
+	&&
+	(typeof request.session == 'object')
+){
+	request.session['response'] = {
+		'success': 0, 
+		'result': '', 
+		//'security_token': '', 
+		//'next_url': '', 
+		'message': {
+			'error': [], 
+			'info': [], 
+			'success': [], 
+		}, 
+	};
+}
+
+/*
+ * set/reset security token and next_url
+ */
+if (
+	(typeof request == 'object')
+	&&
+	(typeof request.session == 'object')
+	&&
+	(typeof request.session['response'] == 'object')
+){
+if (
+	(typeof request.session['response']['security_token'] == 'undefined')
+	||
+	(!request.session['response']['security_token'])
+){
+	request.session['response']['security_token'] = '';
+}
+if (
+	(typeof request.session['response']['next_url'] == 'undefined')
+	||
+	(!request.session['response']['next_url'])
+){
+	request.session['response']['next_url'] = '';
+}
+}
+
+
+/**
+ * return success
+ */
+return true;
+
+/**
+ * done //function
+ */
+}
+
+/**
+ * //function to return JSON output to the browser
+ */
+send(
+	values=''
+){
+
+
+/**
+ * return standardized object
+ */
+return ({
+	'sucess': this.success, 
+	'message': this.message, 
+	'result': this.result, 
+});
+
+/**
+ * done //function
+ */
+}
+
+test_func(pointer='') {
+console.log(pointer);
+return true;
+}
+
+/**
+ * done //class
+ */
+}
+
 export default output;
