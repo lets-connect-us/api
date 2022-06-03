@@ -142,4 +142,5 @@ return true;
  */
 }
 
+output = new output;
 export default output;

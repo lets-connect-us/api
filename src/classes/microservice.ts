@@ -32,9 +32,6 @@ async call(
 	values=''
 ){
 
-console.log(csrf.debug_timestamp);
-//csrf.test_func('TEST');
-
 /**
  * reset success
  */
@@ -54,35 +51,53 @@ if (
 	console.log(values);
 	return false;
 }
-let url = this.base_url + '/' + values['url'];
+let url = this.base_url + values['url'];
+url = url.replace(/[//]+/gi, "/");
+url = url.replace(':/', '://');
+
+
+/**
+ * add request data if we don't have it
+ */
+let request_data={};
+if (
+	(typeof values == 'object')
+	&&
+	(typeof values['request_data'] != 'undefined')
+){
+	request_data = values['request_data'];
+}
 
 /**
  * try Axios API call
  */
 try {
-	const { data } = await axios.post(
-		'http://127.0.0.1:8000/test',
-		{ name: 'John Smith', job: 'manager' },
-  {
-	headers: {
-	  'Content-Type': 'application/json',
-	  Accept: 'application/json',
-	},
-  },
-);
+	const data = axios.post(
+		url,
+		request_data,
+		{headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+		},},
+	);
+	return data
+	.then(function (response) {
+		console.log(response);
+	});
 
-console.log(JSON.stringify(data, null, 4));
-
-return data;
 } catch (error) {
-if (axios.isAxiosError(error)) {
-  console.log('error message: ', error.message);
-  // 👇️ error: AxiosError<any, any>
-  return error.message;
-} else {
-  console.log('unexpected error: ', error);
-  return 'An unexpected error occurred';
-}
+
+	if (axios.isAxiosError(error)) {
+		console.log('error message: ', error.message);
+		return error.message;
+	} else {
+		console.log('unexpected error: ', error);
+		return 'An unexpected error occurred';
+	}
+
+/**
+ * done try/catch
+ */
 }
 
 /**

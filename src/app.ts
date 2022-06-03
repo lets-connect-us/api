@@ -28,8 +28,7 @@ require ('./constants.inc');
  * //leftoff //debug import vars
  */ 
 import test from "~classes/test";
-import classes_output from "~classes/output";
-const output = new classes_output;
+import output from "~classes/output";
 
 /**
  * import routes
@@ -45,7 +44,6 @@ if (!process.env.PORT) {
 	console.log('No server port provided.');
 	process.exit(1);
 }
-const PORT: number = parseInt(process.env.PORT as string, 10);
 app.set("port", process.env.PORT || 3000);
 
 /**
@@ -55,7 +53,7 @@ app.use(helmet());
 app.use(cors());
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
-//app.use(cookie_parser());
+app.use(cookie_parser());
 app.use(session({
 	'resave': true, 
 	'saveUninitialized': true, 
@@ -82,20 +80,26 @@ app.all('/csrf/get_short_term', (request, result) => {
 
 /**
  * register
- * //debug change back to app.post
  */
-app.all('/register', (request, result) => {
+app.post('/register', (request, result) => {
 	let register = new routes_register;
-	result['output'] = new classes_output;
 
+	register.entry_point({
+		'request': request, 
+		'result': result
+	});
+
+	result.send(output.send());
+	
+/**
     result.send(result['output'].send());
     result.send(
 		register.entry_point({
-			'body': request['body'], 
 			'request': request, 
 			'result': result
 		})
 	);
+	*/
 });
 
 /**
@@ -110,8 +114,13 @@ app.all('/test', (request, result) => {
 app.get('/', (request, result) => {
 	request.session['views']++;
 	console.log(request.session);
-	result['output'] = new classes_output;
+	result['output'] = new output;
     result.send(result['output'].send());
 });
+
+/**
+ * setup read microservice API routes
+ */
+require('~routes/read')(app);
 
 export default app;

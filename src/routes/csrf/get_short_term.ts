@@ -8,8 +8,7 @@ var session = require('express-session');
  */
 import microservice from "~classes/microservice";
 import csrf from "~classes/csrf";
-import classes_output from "~classes/output";
-const output = new classes_output;
+import output from "~classes/output";
 
 /**
  * //class to handle API /csrf/short-term end-point

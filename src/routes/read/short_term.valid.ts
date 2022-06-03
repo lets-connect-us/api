@@ -9,12 +9,11 @@ import sanitize from "~classes/sanitize";
 /**
  * //class to handle API /register end-point
  */
-class register {
+class short_term {
 
 /**
  * init data store
  */
-public us_email: String = '';
 
 /**
  * //function to construct
@@ -33,25 +32,9 @@ entry_point(
 	values=''
 ) {
 
-let test = values['request']['body']['security_token'];
-test = sanitize.short_term(values['request']['body']['security_token']);
+console.log(values);
 
-/**
- * confirm security token is valid
- */
-let valid = microservice.call({
-	'url': '/read/short_term/valid', 
-	'request_data': {
-		'csrf': 'test', 
-	}, 
-	'next_function': function(response){
-		console.log(response);
-	}
-});
-console.log(valid);
-
-return values['request']['body'];
-
+return true;
 
 /**
  * done //function
@@ -63,4 +46,4 @@ return values['request']['body'];
  */
 }
 
-export default register;
+export default short_term;
