@@ -8,6 +8,9 @@ class output {
 /**
  * init data storage
  */
+public defaul_messages={
+	
+}
 public success: int = 0;
 public message: Object = {
 	'error': [], 

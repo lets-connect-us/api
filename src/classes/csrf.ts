@@ -171,30 +171,28 @@ if (
 }
 
 /**
- * confirm HTTP referer
- * //leftoff handle this
- */
-
-
-/**
  * init
  */
 let date_object = new Date();
 let date: string = '';
 
-/*
+/**
  * create token signature as the expiry timestamp (20 minutes) of the token.
- * //note stored as 2x the signature just to make it look slightly less like a timestamp
  */
 let signature = date_object.getTime();
-signature = Math.round(signature/1000);//leftoff
+signature = Math.round(signature/1000);
 signature = signature + 900; //20 minutes, the time the user has to complete the form
-signature = signature * 2;
 
 /*
  * create token payload
  */
 let payload = crypto.createHash('md5').update(signature + this.secret).digest('hex');
+
+/**
+ * multiply signature
+ * //note stored as 2.75x the signature just to make it look slightly less like a timestamp
+ */
+signature = signature * 2.75;
 
 /**
  * return token success

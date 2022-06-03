@@ -61,7 +61,7 @@ app.use(session({
 	'saveUninitialized': true, 
     'store': new FileStore({}),
     'secret': process.env.ENVIRONEMENT + process.env.SESSION_SECRET, 
-    'cookie': { maxAge: 3600000, secure: false, httpOnly: false }, 
+    'cookie': { maxAge: 3600000, secure: false, httpOnly: true }, 
 }));
 
 /**
@@ -77,12 +77,6 @@ app.all('/csrf/get_short_term', (request, result) => {
 	});
 
     result.send(output.send());
-/**
-	result['output'] = new classes_output;
-	
-
-    result.send(result['output'].send());
-    */
 });
 
 

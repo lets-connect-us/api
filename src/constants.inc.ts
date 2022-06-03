@@ -1,8 +1,13 @@
 import * as dotenv from "dotenv";
 
 /**
- * init server
+ * reusable error/success messages
  */
+declare var default_messages: Object;
+globalThis.default_messages = {
+	'error': 'Something went terribly wrong.', 
+};
+
 declare var server: Object;
 globalThis.server = {
 	'last_message': '', 
