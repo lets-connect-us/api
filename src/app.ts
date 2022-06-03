@@ -1,35 +1,41 @@
 import 'module-alias/register';
 import * as dotenv from "dotenv";
 
-var body_parser = require('body-parser');
-
-var session = require('express-session');
-var FileStore = require('session-file-store')(session);
-
-require ('./base.inc');
-require ('./constants.inc');
-
+/**
+ * init app
+ */
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+const app = express();
 
+/**
+ * get POST/body JSON parser
+ */
+var body_parser = require('body-parser');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+
+/**
+ * get cookie parser
+ */
+const cookie_parser = require('cookie-parser');
+
+require ('./base.inc');
+require ('./constants.inc');
 
 /** 
  * //leftoff //debug import vars
  */ 
 import test from "~classes/test";
-import output from "~classes/output";
+import classes_output from "~classes/output";
+const output = new classes_output;
 
 /**
  * import routes
  */
 import routes_register from "~routes/account/register";
 import routes_get_short_term from "~routes/csrf/get_short_term";
-
-/**
- * init app
- */
-const app = express();
 
 /**
  * setup config
@@ -49,11 +55,13 @@ app.use(helmet());
 app.use(cors());
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
+//app.use(cookie_parser());
 app.use(session({
-	'resave': false, 
-	'saveUninitialized': false, 
+	'resave': true, 
+	'saveUninitialized': true, 
     'store': new FileStore({}),
     'secret': process.env.ENVIRONEMENT + process.env.SESSION_SECRET, 
+    'cookie': { maxAge: 3600000, secure: false, httpOnly: false }, 
 }));
 
 /**
@@ -62,14 +70,19 @@ app.use(session({
  */
 app.all('/csrf/get_short_term', (request, result) => {
 	let get_short_term = new routes_get_short_term;
-	result['output'] = new output;
-	
+
 	get_short_term.entry_point({
 		'request': request, 
 		'result': result
 	});
 
+    result.send(output.send());
+/**
+	result['output'] = new classes_output;
+	
+
     result.send(result['output'].send());
+    */
 });
 
 
@@ -79,7 +92,7 @@ app.all('/csrf/get_short_term', (request, result) => {
  */
 app.all('/register', (request, result) => {
 	let register = new routes_register;
-	result['output'] = new output;
+	result['output'] = new classes_output;
 
     result.send(result['output'].send());
     result.send(
@@ -102,8 +115,8 @@ app.all('/test', (request, result) => {
 
 app.get('/', (request, result) => {
 	request.session['views']++;
-	console.log(request.session['views']);
-	result['output'] = new output;
+	console.log(request.session);
+	result['output'] = new classes_output;
     result.send(result['output'].send());
 });
 

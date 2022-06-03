@@ -44,29 +44,34 @@ if (typeof request != 'object'){
 	return false;
 }
 
-/*
- * init session response object
+/**
+ * init/reset session response object
  */
 if (
 	(typeof request == 'object')
 	&&
 	(typeof request.session == 'object')
+	&&
+	(typeof request.session['response'] != 'object')
 ){
 	request.session['response'] = {
 		'success': 0, 
 		'result': '', 
-		//'security_token': '', 
-		//'next_url': '', 
-		'message': {
-			'error': [], 
-			'info': [], 
-			'success': [], 
-		}, 
+		'security_token': '', 
+		'next_url': '', 
+		'message': {}, 
 	};
 }
+request.session['response']['success']=0;
+request.session['response']['result']='';
+request.session['response']['message']={
+	'error': [], 
+	'info': [], 
+	'success': [], 
+};
 
 /*
- * set/reset security token and next_url
+ * set/reset security token and response
  */
 if (
 	(typeof request == 'object')

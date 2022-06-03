@@ -1,5 +1,6 @@
 import 'module-alias/register';
 import { Request, Response, NextFunction } from "express";
+
 var session = require('express-session');
 
 /*
@@ -52,15 +53,27 @@ if (
 /*
  * get a new token
  */
-csrf.get_short_term({
+let short_term_token = csrf.get_short_term({
 	'ip_addr': values['request'].socket['remoteAddress'], 
 	'url': values['request']['query']['url'] || values['request']['body']['url'] || '', 
 	'browser_token': values['request']['query']['browser_token'] || values['request']['body']['browser_token'] || '', 
+	'referrer': values['request']['headers'].referrer || values['request']['headers'].referer || '', 
 });
+
+/**
+ * write security_token cookie
+ */
+values['result'].cookie('security_token', short_term_token, { maxAge: 900000, httpOnly: true });
+
+/**
+ * write security_token session
+ */
+console.log(values['request'].session);
+values['request'].session['response']['security_token'] = short_term_token;
 
 //values['request'].headers['cf-connecting-ip']
 console.log('START');
-console.log(values['request'].session);
+console.log(short_term_token);
 console.log('FINISH');
 
 /**
