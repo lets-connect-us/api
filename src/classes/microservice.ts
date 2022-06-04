@@ -69,6 +69,11 @@ if (
 }
 
 /**
+ * handle/setup then_function
+ */
+let then_function = function(response=''){return response;}
+
+/**
  * try Axios API call
  */
 try {
@@ -83,17 +88,21 @@ try {
 	return data
 	.then(function (response) {
 		console.log(response);
+	})
+	.catch(function (error) {
+		console.log('Error: ', error);
+		return false;
 	});
 
 } catch (error) {
 
 	if (axios.isAxiosError(error)) {
-		console.log('error message: ', error.message);
-		return error.message;
+		console.log('Error message: ', error.message);
 	} else {
-		console.log('unexpected error: ', error);
-		return 'An unexpected error occurred';
+		console.log('Unexpected error: ', error);
 	}
+	
+	return false;
 
 /**
  * done try/catch
