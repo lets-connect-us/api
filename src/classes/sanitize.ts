@@ -91,6 +91,36 @@ return text;
  */
 }
 
+/**
+ * //function to replace line breaks and non-alphanumeric chars
+ */
+short_text(text=''){
+
+/**
+ * init string
+ */
+if (
+	(typeof text != 'string')
+	||
+	(!text)
+){
+	return '';
+}
+
+/**
+ * regex replace
+ */
+text = text.replace(/[^ -~]+/g, "");
+
+/**
+ * retrun success
+ */
+return text;
+
+/**
+ * done //function
+ */
+}
 
 
 /**

@@ -174,7 +174,6 @@ if (
  * init
  */
 let date_object = new Date();
-let date: string = '';
 
 /**
  * create token signature as the expiry timestamp (20 minutes) of the token.
@@ -186,7 +185,11 @@ signature = signature + 900; //20 minutes, the time the user has to complete the
 /*
  * create token payload
  */
-let payload = crypto.createHash('md5').update(signature + this.secret).digest('hex');
+let payload = this.get_short_term_payload({
+	'url' : values['url'], 
+	'ip_addr' : values['ip_addr'], 
+	'signature' : signature, 
+});
 
 /**
  * multiply signature
@@ -205,9 +208,44 @@ return payload + '.' + signature;
  */
 }
 
-test_func(pointer='') {
-console.log(pointer);
-return true;
+/**
+ * //function to get a short_term token payload
+ */
+get_short_term_payload(values=''){
+
+/**
+ * confirm we have a signature
+ */
+if (
+	(typeof values['url'] != 'string')
+	||
+	(!values['url'])
+	||
+	(typeof values['ip_addr'] != 'string')
+	||
+	(!values['ip_addr'])
+	||
+	(typeof values['signature'] == 'undefined')
+	||
+	(!values['signature'])
+){
+	return false;
+}
+
+/**
+ * create payload
+ */
+let payload = values['url'] + values['ip_addr'] + values['signature'] + this.secret;
+payload = crypto.createHash('md5').update(payload).digest('hex');
+
+/**
+ * return success
+ */
+return payload;
+
+/**
+ * done //function
+ */
 }
 
 /**

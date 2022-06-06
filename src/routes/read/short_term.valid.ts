@@ -91,6 +91,19 @@ if (!ip_addr){
 /**
  * //leftoff handle url
  */
+if (
+	(typeof values['request_store']['request']['body']['url'] == 'undefined')
+	||
+	(!values['request_store']['request']['body']['url'])
+){
+	values['request_store']['success']=0;
+	values['request_store']['message']['error'].push('Security token URL was not provided or not valid.');
+	values['request_store']['result'].send(values['request_store'].send());
+	return false;
+}
+let url = sanitize.short_text(values['request_store']['request']['body']['url']);
+
+
 
 /**
  * confirm we have a security token
@@ -106,6 +119,13 @@ if (
 	return false;
 }
 let security_token_provided = sanitize.jwt(values['request_store']['request']['body']['security_token_provided']);
+
+/**
+ * get current timestamp
+ */
+let current_timestamp = new Date();
+current_timestamp = current_timestamp.getTime();
+current_timestamp = Math.round(current_timestamp/1000);
 
 
 /**
@@ -123,22 +143,45 @@ signature = signature.join('.');
 /**
  * divide by 2.75 since we multiplied by
  */
-signature = sanitize.number(signature) / 3;
+signature = sanitize.number(signature) / 2.75;
 
-let url = values['request_store']['request']['query']['url'] || values['request_store']['request']['body']['url'] || '';
-let browser_token = values['request_store']['request']['query']['browser_token'] || values['request_store']['request']['body']['browser_token'] || '';
+/**
+ * check short_term expiry
+ */
+if (signature < current_timestamp){
+	values['request_store']['response']['message']['error'].push('Short term security token has expired.');
+	values['request_store']['response']['success']=0;
+	values['request_store']['result'].send(values['request_store']['response']);
+}
 
-console.log([
-	ip_addr, 
-	url, 
-	browser_token
-]);
+/**
+ * calculate payload based
+ */
+let new_payload = csrf.get_short_term_payload({
+	'signature' : signature, 
+	'url' : url, 
+	'ip_addr': ip_addr, 
+});
 
-//console.log(signature);
-//console.log(payload);
+/**
+ * compare payloads
+ */
+if (payload != new_payload){
+	values['request_store']['response']['message']['error'].push('Short term security token does not match.');
+	values['request_store']['response']['success']=0;
+	values['request_store']['result'].send(values['request_store']['response']);
+}
 
+/**
+ * build success
+ */
+values['request_store']['response']['success']=1;
+values['request_store']['response']['result']=payload + '.' + signature;
 
-values['request_store']['result'].send(payload);
+/**
+ * return success
+ */
+values['request_store']['result'].send(values['request_store']['response']);
 return true;
 
 /**

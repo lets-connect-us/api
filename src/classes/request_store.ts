@@ -11,14 +11,16 @@ class request_store {
  */
 public request: Object = {};
 public result: Object = {};
-public success: int = 0;
-public message: Object = {
-	'error': [], 
-	'info': [], 
-	'success': [], 
-}
-public output_result=''; //note we specifically do not specify a type for result since it can be string, array, object, etc
-
+public response: Object = {
+	'result': '', 
+	'success': 0, 
+	'message': {
+		'error': [], 
+		'info': [], 
+		'success': [], 
+	}, 
+};
+public requirements: Object = {};
 
 /**
  * //function to construct 
