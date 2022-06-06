@@ -10,11 +10,9 @@ constructor() {
 }
 
 /**
- * //func to sanitize a number
+ * //function to sanitize a number
  */
-number(
-	number=""
-){
+number(number=''){
 
 /**
  * make sure we have something to sanitize
@@ -63,40 +61,70 @@ return (number * number_multiplier);
 }
 
 /**
- * //function to return payload/signature for a short_term token
+ * //function to sanitize a JWT
  */
-short_term (
-	short_term=''
+jwt(text=''){
+
+/**
+ * init string
+ */
+if (
+	(typeof text != 'string')
+	||
+	(!text)
 ){
-
-/**
- * split up
- * get payload
- * and recombine
- */
-let signature = short_term.split('.');
-if (typeof signature.shift != 'function'){
-	return false;
+	return '';
 }
-let payload = signature.shift();
-signature = signature.join('.');
 
 /**
- * divide by 2.75 since we multiplied by
+ * regex replace
  */
-signature = this.number(signature) / 3;
+text = text.replace(/[^a-zA-Z0-9|.]+/gi, "");
 
-
-
-console.log(signature);
-
-console.log(payload);
+/**
+ * retrun success
+ */
+return text;
 
 /**
  * done //function
  */
 }
 
+
+
+/**
+ * //function to sanitize a JWT
+ */
+ip_address(ip=''){
+
+/**
+ * init string
+ */
+if (
+	(typeof ip == 'undefined')
+	||
+	(!ip)
+	||
+	(typeof ip.replace != 'function')
+){
+	return '';
+}
+
+/**
+ * regex replace
+ */
+ip = ip.replace(/[^a-zA-Z0-9|.|:]+/gi, "");
+
+/**
+ * retrun success
+ */
+return ip;
+
+/**
+ * done //function
+ */
+}
 
 /**
  * done //class

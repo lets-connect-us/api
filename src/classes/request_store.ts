@@ -4,21 +4,20 @@ import length from '~classes/length';
 /**
  * //class to store and handle output
  */
-class output {
+class request_store {
 
 /**
  * init data storage
  */
-public defaul_messages={
-	
-}
+public request: Object = {};
+public result: Object = {};
 public success: int = 0;
 public message: Object = {
 	'error': [], 
 	'info': [], 
 	'success': [], 
 }
-public result=''; //note we specifically do not specify a type for result since it can be string, array, object, etc
+public output_result=''; //note we specifically do not specify a type for result since it can be string, array, object, etc
 
 
 /**
@@ -27,6 +26,18 @@ public result=''; //note we specifically do not specify a type for result since 
 constructor(
 	values=''
 ){
+
+/*
+ * set request
+ */
+if (typeof values == 'object'){
+if (typeof values['request']){
+	this.request = values['request'];
+}
+if (typeof values['result']){
+	this.result = values['result'];
+}
+}
 
 /**
  * done //function
@@ -146,5 +157,4 @@ return ({
  */
 }
 
-output = new output;
-export default output;
+export default request_store;

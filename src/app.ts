@@ -28,12 +28,14 @@ require ('./constants.inc');
  * //leftoff //debug import vars
  */ 
 import test from "~classes/test";
+import classes_request_store from "~classes/request_store";
 import output from "~classes/output";
 
 /**
  * import routes
  */
 import routes_register from "~routes/account/register";
+const register = new routes_register;
 import routes_get_short_term from "~routes/csrf/get_short_term";
 
 /**
@@ -82,14 +84,16 @@ app.all('/csrf/get_short_term', (request, result) => {
  * register
  */
 app.post('/register', (request, result) => {
-	let register = new routes_register;
-
-	register.entry_point({
+	let request_store = new classes_request_store({
 		'request': request, 
-		'result': result
+		'result': result,
+	});
+	
+	register.entry_point({
+		'request_store': request_store
 	});
 
-	result.send(output.send());
+	//result.send(output.send());
 	
 /**
     result.send(result['output'].send());
@@ -105,11 +109,6 @@ app.post('/register', (request, result) => {
 /**
  * test/debug
  */
-app.all('/test', (request, result) => {
-    let date = new Date();
-    let return_result = 'URL called at :' + date.getHours() + ':' + date.getMinutes();
-    result.send(return_result);
-});
 
 app.get('/', (request, result) => {
 	request.session['views']++;

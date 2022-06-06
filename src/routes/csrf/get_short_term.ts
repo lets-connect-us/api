@@ -83,7 +83,7 @@ if (!short_term_token){
 /**
  * write security_token cookie
  */
-values['result'].cookie('security_token', short_term_token, { maxAge: 900000, httpOnly: true });
+values['result'].cookie('security_token', short_term_token, { maxAge: 900000, httpOnly: false });
 
 /**
  * write security_token session

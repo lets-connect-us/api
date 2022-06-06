@@ -28,7 +28,7 @@ constructor() {
 /**
  * //function to execute a call
  */
-async call(
+call(
 	values=''
 ){
 
@@ -72,12 +72,21 @@ if (
  * handle/setup then_function
  */
 let then_function = function(response=''){return response;}
+if (
+	(typeof values == 'object')
+	&&
+	(typeof values['then_function'] == 'function')
+	&&
+	(values['then_function'])
+){
+	then_function = values['then_function'];
+}
 
 /**
  * try Axios API call
  */
 try {
-	const data = axios.post(
+	let response = axios.post(
 		url,
 		request_data,
 		{headers: {
@@ -85,9 +94,10 @@ try {
 			Accept: 'application/json',
 		},},
 	);
-	return data
-	.then(function (response) {
-		console.log(response);
+	return response
+	.then(function (response){
+		then_function();
+		return response;
 	})
 	.catch(function (error) {
 		console.log('Error: ', error);
