@@ -7,6 +7,7 @@ import microservice from "~classes/microservice";
 import csrf from "~classes/csrf";
 import length from "~classes/length";
 import sanitize from "~classes/sanitize";
+import validate from "~classes/validate";
 
 /**
  * //class to handle API /register end-point
@@ -72,10 +73,11 @@ if (
 /**
  * setup success requirements
  */
-values['request_store']['requirements']['Required values provided.']=0;
-values['request_store']['requirements']['Short-term security token valid.']=0;
-values['request_store']['requirements']['User email is valid.']=0;
-values['request_store']['requirements']['Pazz meets requirements']=0;
+values['request_store']['requirements']['check_required_values']=0;
+values['request_store']['requirements']['check_short_term_token']=0;
+values['request_store']['requirements']['check_us_email']=0;
+values['request_store']['requirements']['check_pazz']=0;
+values['request_store']['requirements']['create_us_account']=0;
 
 /**
  * get security token provided
@@ -98,6 +100,63 @@ if (!values['request_store'].ip_addr){
 	values['request_store']['result'].send(values['request_store']['response']);
 	return false;
 }
+
+/**
+ * get us_email
+ */
+values['request_store'].us_email = sanitize.email(values['request_store']['request']['body']['us_email'] || '');
+if (
+	(!values['request_store'].us_email)
+	||
+	(!validate.email(values['request_store'].us_email))
+){
+	values['request_store']['response']['message']['error'].push(validate.last_message);
+	console.log('Email address not provided or not valid.');
+	values['request_store']['response']['success']=0;
+	values['request_store']['response']['message']['error'].push(globalThis.default_messages['error']);
+	values['request_store']['result'].send(values['request_store']['response']);
+	return false;
+}
+
+/**
+ * get pazz
+ */
+values['request_store'].pazz = sanitize.all_text(values['request_store']['request']['body']['pazz'] || '');
+if (
+	(!values['request_store'].pazz)
+	||
+	(!validate.pazz(values['request_store'].pazz))
+){
+	values['request_store']['response']['message']['error'].push(validate.last_message);
+	console.log('Password not provided or not valid.');
+	values['request_store']['response']['success']=0;
+	values['request_store']['response']['message']['error'].push(globalThis.default_messages['error']);
+	values['request_store']['result'].send(values['request_store']['response']);
+	return false;
+}
+
+
+values['request_store']['result'].send('TEST');
+return false;
+
+/**
+ * return success
+ *
+console.log(valid);
+return valid;
+return values['request']['body'];
+
+
+/**
+ * done //function
+ */
+}
+
+/**
+ * //function to confirm [short-term] security token is valid
+ */
+check_short_term(values=''){
+
 
 /**
  * confirm security token is valid
@@ -134,26 +193,10 @@ valid.then(function(response){
 	//run then function
 });
 
-values['request_store']['result'].send('TEST');
-return false;
-
-/**
- * return success
- *
-console.log(valid);
-return valid;
-return values['request']['body'];
-
-
 /**
  * done //function
  */
 }
-
-/**
- * //function to confirm [short-term] security token is valid
- */
-
 
 /**
  * done //class
