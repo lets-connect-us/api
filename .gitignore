@@ -5,9 +5,12 @@
 **/composer
 node_modules
 **/node_modules
+**/node_modules/*
 jspm_packages
 **/jspm_packages
+static
 **/static
+**/static/*
 *.php.log
 IndexerVolumeGuid
 *.zip
@@ -15,6 +18,8 @@ IndexerVolumeGuid
 *.tgz
 **/db_credentials.js
 **/secret.txt
+**/sessions
+sessions
 **/sessions/*
 #mine
 
