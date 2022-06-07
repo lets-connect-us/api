@@ -15,6 +15,7 @@ IndexerVolumeGuid
 *.tgz
 **/db_credentials.js
 **/secret.txt
+**/sessions/*
 #mine
 
 # Logs
