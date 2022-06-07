@@ -1,4 +1,4 @@
-#Problem:
+##Problem:
 
 It's a common problem to quickly & easily connect with someone.
 
@@ -6,7 +6,7 @@ A few examples:
 1. You're on the phone with your doctor and need to share a senesitive document.
 2. You're on social media and want to share your email, phone number, etc.
 
-#Solution:
+##Solution:
 
 A "repository" of information and files. You can create short-term shares with a password and expiry date (or limited number of access). You can do this in just a few clicks to then share with someone.
 
