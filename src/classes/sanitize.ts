@@ -10,6 +10,36 @@ constructor() {
 }
 
 /**
+ * //function (reusable) to sanitize all text
+ */
+all_text(text=''){
+
+/**
+ * convert null
+ */
+if (
+	(typeof text == 'undefined')
+	||
+	(text == null)
+	||
+	(text == 'null')
+	||
+	(text == 'NULL')
+){
+	return '';
+}
+
+/**
+ * return success
+ */
+return text;
+
+/**
+ * done //function
+ */
+}
+
+/**
  * //function to sanitize a number
  */
 number(number=''){
@@ -77,9 +107,14 @@ if (
 }
 
 /**
+ * clean up
+ */
+text = this.all_text(text);
+
+/**
  * regex replace
  */
-text = text.replace(/[^a-zA-Z0-9|.]+/gi, "");
+text = text.replaceAll(/[^a-zA-Z0-9|.]+/gi, "");
 
 /**
  * retrun success
@@ -108,9 +143,14 @@ if (
 }
 
 /**
+ * clean up
+ */
+text = this.all_text(text);
+
+/**
  * regex replace
  */
-text = text.replace(/[^ -~]+/g, "");
+text = text.replaceAll(/[^ -~]+/g, "");
 
 /**
  * retrun success
@@ -150,6 +190,38 @@ ip = ip.replace(/[^a-zA-Z0-9|.|:]+/gi, "");
  * retrun success
  */
 return ip;
+
+/**
+ * done //function
+ */
+}
+
+/**
+ * //function to sanitize an email
+ */
+email(email=''){
+
+/**
+ * confirm we have data
+ */
+if (
+	(typeof email != 'string')
+	||
+	(!email)
+){
+	return '';
+}
+
+/**
+ * trim and lower case
+ */
+email = email.trim();
+email = email.toLowerCase();
+
+/**
+ * return success
+ */
+return email;
 
 /**
  * done //function

@@ -1,5 +1,6 @@
 var session = require('express-session');
 import length from '~classes/length';
+import sanitize from '~classes/sanitize';
 
 /**
  * //class to store and handle output
@@ -9,6 +10,8 @@ class request_store {
 /**
  * init data storage
  */
+public security_token: String = '';
+public ip_addr: String = '';
 public request: Object = {};
 public result: Object = {};
 public response: Object = {
@@ -29,16 +32,28 @@ constructor(
 	values=''
 ){
 
-/*
+/**
  * set request
+ * and result
  */
-if (typeof values == 'object'){
+if (typeof values != 'object'){
+	return '';
+}
+
+/**
+ * confirm request and set/save
+ */
 if (typeof values['request']){
 	this.request = values['request'];
+	this.security_token = sanitize.jwt(values['request']['body']['security_token'] || '');
+	this.ip_addr = sanitize.short_text(values['request'].socket['remoteAddress'] || values['request'].headers['cf-connecting-ip'] || '');
 }
+
+/**
+ * confirm result and set/save
+ */
 if (typeof values['result']){
 	this.result = values['result'];
-}
 }
 
 /**
@@ -73,20 +88,10 @@ if (
 	(typeof request.session['response'] != 'object')
 ){
 	request.session['response'] = {
-		'success': 0, 
-		'result': '', 
 		'security_token': '', 
 		'next_url': '', 
-		'message': {}, 
 	};
 }
-request.session['response']['success']=0;
-request.session['response']['result']='';
-request.session['response']['message']={
-	'error': [], 
-	'info': [], 
-	'success': [], 
-};
 
 /*
  * set/reset security token and response
