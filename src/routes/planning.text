@@ -1,0 +1,72 @@
+/CSRF
+	/csrf/short_term
+		INPUT:
+			
+		OUTPUT:
+			
+	/csrf/security_token
+		INPUT:
+			
+		OUTPUT:
+			
+
+/account
+	/account/register
+		INPUT:
+			
+		OUTPUT:
+			
+	/account/login
+		INPUT:
+			
+		OUTPUT:
+			
+	/account/reset_password
+		INPUT:
+			
+		OUTPUT:
+			
+	/account/get_details
+		INPUT:
+			
+		OUTPUT:
+			
+	/account/update
+		INPUT:
+			
+		OUTPUT:
+			
+	/account/update_password
+		INPUT:
+			
+		OUTPUT:
+			
+	/account/update_email
+		INPUT:
+			
+		OUTPUT:
+			
+
+/create
+	
+
+/read
+	/read/short_term_valid
+		INPUT:
+			
+		OUTPUT:
+			
+	/read/security_token_valid
+		INPUT:
+			
+		OUTPUT:
+			
+	/read/connect_url
+		INPUT:
+			
+		OUTPUT:
+			
+
+/update
+
+/delete
