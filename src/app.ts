@@ -1,5 +1,10 @@
+/**
+ * directory alieases 
+ * and environment config
+ */
 import 'module-alias/register';
 import * as dotenv from "dotenv";
+dotenv.config();
 
 /**
  * init app
@@ -10,47 +15,37 @@ import helmet from "helmet";
 const app = express();
 
 /**
- * get POST/body JSON parser
+ * Required External Modules
  */
+const cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 
 /**
- * get cookie parser
+ * classes used in this file
  */
-const cookie_parser = require('cookie-parser');
-
-require ('./base.inc');
-require ('./constants.inc');
-
-/** 
- * //leftoff //debug import vars
- */ 
 import test from "~classes/test";
 import classes_request_store from "~classes/request_store";
 import output from "~classes/output";
 
 /**
- * import routes
+ * routes used in this file
  */
 import routes_register from "~routes/account/register";
 const register = new routes_register;
 import routes_get_short_term from "~routes/csrf/get_short_term";
 
 /**
- * setup config
+ * App Variables
  */
-dotenv.config();
+require ('./base.inc');
+require ('./constants.inc');
 if (!process.env.PORT) {
 	console.log('No server port provided.');
 	process.exit(1);
 }
 app.set("port", process.env.PORT || 3000);
-
-/**
- * setup app functions
- */
 app.use(helmet());
 app.use(cors());
 app.use(body_parser.urlencoded({ extended: false }));
@@ -63,6 +58,14 @@ app.use(session({
     'secret': process.env.ENVIRONEMENT + process.env.SESSION_SECRET, 
     'cookie': { maxAge: 3600000, secure: false, httpOnly: true }, 
 }));
+
+/**
+ *  App Configuration
+ */
+
+/**
+ * Server Activation
+ */
 
 /**
  * get a short term CSRF
