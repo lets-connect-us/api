@@ -1,17 +1,121 @@
-**/*.log
-**/dev_tools
-**/composer
-**/node_modules
-**/static
-*.php.log
-IndexerVolumeGuid
-**/canada_scores
-**/canada_scores/*
-**/font-awesome
-**/font-awesome/*
-.htaccess
+###################################
 
-lakebed_settings.inc.php
-**/*.db_table.inc.php
-**/*.public.db_table.inc.php
-**/*.secret.inc.php
+#mine
+
+###################################
+
+
+#logs
+**/*.log
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+*.php.log
+**/*.php.log
+
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+*.lock
+**/*.lock
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+*.grunt
+**/*.grunt
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+**/build/*
+**/build
+build
+build/Release
+static
+**/static
+**/static/*
+**/dist/*
+**/dist
+dist
+
+# Dependency directories/files
+**/composer
+**/composer/*
+node_modules
+**/node_modules
+**/node_modules/*
+jspm_packages
+**/jspm_packages
+package-lock.json
+**/package-lock.json
+
+
+# TypeScript v1 declaration files
+typings/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# dev tools
+**/dev_tools
+**/dev_tools/*
+pl
+**/pl
+pl-all.sh
+**/pl-all.sh
+ps
+**/ps
+ps-all.sh
+**/ps-all.sh
+**/*.ini
+*.ini
+
+
+# compressed files
+**/*.zip
+*.zip
+*.tar.gz
+**/*.tar.gz
+*.tgz
+**/*.tgz
+**/db_credentials.js
+
+# environment variables, secrets, and sessions
+**/secret.txt
+**/sessions
+sessions
+**/sessions/*
+**/*.env
+.env
+.env.test
+
+# Next.js build output
+.next
+**/*.next
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+**/*.cache
+
+
+# OS metadata
+.DS_Store
+**/*.DS_Store
+Thumbs.db
+**/Thumbs.db
+IndexerVolumeGuid
+**/IndexerVolumeGuid
+**/IndexerVolumeGuid/*
+
+###################################
+
+#mine
+
+###################################
