@@ -48,7 +48,11 @@
 			
 
 /create
-	
+	/create/account
+		INPUT:
+			
+		OUTPUT:
+			
 
 /read
 	/read/short_term_valid
@@ -68,5 +72,15 @@
 			
 
 /update
+	/update/account
+		INPUT:
+			
+		OUTPUT:
+			
+	/update/password
+		INPUT:
+			
+		OUTPUT:
+			
 
 /delete
