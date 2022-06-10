@@ -26,6 +26,9 @@ var FileStore = require('session-file-store')(session);
 /**
  * classes used in this file
  */
+import classes_init_server from "~classes/init_server";
+let init_server = new classes_init_server;
+
 import test from "~classes/test";
 import classes_request_store from "~classes/request_store";
 import output from "~classes/output";
