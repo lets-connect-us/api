@@ -76,6 +76,8 @@ ps-all.sh
 **/ps-all.sh
 **/*.ini
 *.ini
+run_all_npm_*
+**/run_all_npm_*
 
 
 # compressed files
