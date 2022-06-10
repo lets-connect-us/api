@@ -5,7 +5,8 @@
 import 'module-alias/register';
 import * as dotenv from "dotenv";
 dotenv.config();
-dotenv.config({ path: 'secret.env' })
+dotenv.config({ path: 'secret.env' });
+dotenv.config({ path: 'firebase.env' });
 
 /**
  * init app
@@ -45,11 +46,7 @@ import routes_get_short_term from "~routes/csrf/get_short_term";
  */
 require ('./base.inc');
 require ('./constants.inc');
-if (!process.env.PORT) {
-	console.log('No server port provided.');
-	process.exit(1);
-}
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT);
 app.use(helmet());
 app.use(cors());
 app.use(body_parser.urlencoded({ extended: false }));
@@ -118,7 +115,7 @@ app.post('/register', (request, result) => {
  */
 
 app.get('/', (request, result) => {
-	console.log(process.env.SECRET);
+	console.log(process.env);
     result.send('TEST!');
 });
 

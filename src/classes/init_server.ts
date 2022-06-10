@@ -34,6 +34,14 @@ if (!fs.existsSync('./firebase.env')) {
 	process.exit(1);
 }
 
+/**
+ * confirm port is set
+ */
+if (!process.env.PORT) {
+	console.log('No server port provided.');
+	process.exit(1);
+}
+
 return true;
 
 /**
