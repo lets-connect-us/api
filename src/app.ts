@@ -5,6 +5,7 @@
 import 'module-alias/register';
 import * as dotenv from "dotenv";
 dotenv.config();
+dotenv.config({ path: 'secret.env' })
 
 /**
  * init app
@@ -114,10 +115,8 @@ app.post('/register', (request, result) => {
  */
 
 app.get('/', (request, result) => {
-	request.session['views']++;
-	console.log(request.session);
-	result['output'] = new output;
-    result.send(result['output'].send());
+	console.log(process.env.SECRET);
+    result.send('TEST!');
 });
 
 /**
