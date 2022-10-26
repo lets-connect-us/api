@@ -9,6 +9,8 @@
 **/*.log
 logs
 *.log
+**/*.log.php
+*.log.php
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -34,25 +36,33 @@ pids
 **/*.grunt
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
+build
+build/
 **/build/*
 **/build
-build
 build/Release
 static
+static/
 **/static
 **/static/*
+dist
+dist/
 **/dist/*
 **/dist
-dist
 
 # Dependency directories/files
+composer
+composer/
 **/composer
 **/composer/*
-*node_modules*
-**/node_modules/
+node_modules
+node_modules/
+**/node_modules
 **/node_modules/*
 jspm_packages
+jspm_packages/
 **/jspm_packages
+**/jspm_packages/*
 package-lock.json
 **/package-lock.json
 
@@ -64,6 +74,8 @@ typings/
 *.tsbuildinfo
 
 # dev tools
+dev_tools
+dev_tools/
 **/dev_tools
 **/dev_tools/*
 pl
@@ -91,12 +103,17 @@ run_all_npm_*
 
 # environment variables, secrets, and sessions
 **/secret.txt
-**/sessions
+**/*.secret.php
+*.secret.php
 sessions
+sessions/
+**/sessions
 **/sessions/*
-**/*.env
 .env
-.env.test
+*.env
+**/*.env
+**/settings.inc.php
+*settings.inc.php
 
 # Next.js build output
 .next
@@ -104,8 +121,15 @@ sessions
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+.cache/
 **/*.cache
+**/*.cache/*
 
+# data
+*.db
+**/*.db
+*.sqlite
+**/*.sqlite
 
 # OS metadata
 .DS_Store
