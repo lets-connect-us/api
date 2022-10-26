@@ -6,7 +6,7 @@ import 'module-alias/register';
 import * as dotenv from "dotenv";
 dotenv.config();
 dotenv.config({ path: 'secret.env' });
-dotenv.config({ path: 'firebase.env' });
+//dotenv.config({ path: 'firebase.env' });
 
 /**
  * App Variables
@@ -30,7 +30,7 @@ const app = express();
  */
 global.sqlite3 = require('sqlite3'); //for some reason sqlite has to be required here rather than in the class
 global.Promise = require('bluebird'); //for some reason bluebird has to be required here rather than in the class
-const cookie_parser = require('cookie-parser');
+var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
@@ -38,11 +38,20 @@ var FileStore = require('session-file-store')(session);
 /**
  * classes used in this file
  */
-//require('~common/classes/init_server');
+require('~common/classes/init_server');
+var sanitize = require('~common/classes/sanitize');
+
+/**
+ * database setup
+ */
+var migrate_database = require('~src/migrate_database');
 var db = require('~common/classes/db.sqlite');
 db.connect({'db_file' : './users.db'});
-console.log(db);
-var sanitize = require('~common/classes/sanitize');
+let tmp = db.connect({'db_file' : './calendars.db'});
+migrate_database.run({
+	'connection' : tmp, 
+	'name' : 'calendars', 
+});
 
 /**
  * setup Express app
@@ -115,6 +124,7 @@ app.post('/email/send', (request, result) => {
  * test/debug
  */
 app.get('/', (request, result) => {
+	console.log(db);
     result.send('TEST!');
 });
 

@@ -48,8 +48,8 @@ dist
 # Dependency directories/files
 **/composer
 **/composer/*
-node_modules
-**/node_modules
+*node_modules*
+**/node_modules/
 **/node_modules/*
 jspm_packages
 **/jspm_packages
