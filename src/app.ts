@@ -16,7 +16,6 @@ dotenv.config({ path: 'secret.env' });
 require('~src/base.inc');
 var constants = require('~src/constants.inc');
 
-
 /**
  * init express/app
  */
@@ -47,9 +46,8 @@ var sanitize = require('~common/classes/sanitize');
 var migrate_database = require('~src/migrate_database');
 var db = require('~common/classes/db.sqlite');
 db.connect({'db_file' : './users.db'});
-let tmp = db.connect({'db_file' : './calendars.db'});
 migrate_database.run({
-	'connection' : tmp, 
+	'connection' : db.connect({'db_file' : './calendars.db'}), 
 	'name' : 'calendars', 
 });
 
@@ -124,8 +122,38 @@ app.post('/email/send', (request, result) => {
  * test/debug
  */
 app.get('/', (request, result) => {
-	console.log(db);
-    result.send('TEST!');
+
+/**
+ * insert new entry
+ */
+let tmp = new Date().toString();
+db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, 
+    [],
+    function(error){
+		if (
+			(error)
+			&&
+			(typeof error['message'] == 'string')
+		){
+			console.log('Error adding new date entry:' + error['message']);
+		}
+    }
+);
+
+/**
+ * select all and build output
+ */
+const output = [];
+db['connections']['calendarsdb'].all("SELECT * FROM store",
+    (error, query_result) => {
+		for (let key in query_result){
+			console.log(query_result[ key ]);
+			output.push('<p>' + query_result[ key ]['id'] + ': ' + query_result[ key ]['json'] + '</p>');
+		}
+		result.send(output.join(''));
+    }
+);
+
 });
 
 export default app;
