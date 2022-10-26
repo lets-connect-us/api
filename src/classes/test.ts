@@ -1,8 +1,10 @@
 /** 
  * //leftoff //debug import vars
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */ 
-import output from "~classes/output";
-let output = new output;
+var output = require("~classes/output");
+output.message['error'].push('TEST2');
 
 class test {
   public server;
@@ -11,10 +13,15 @@ class test {
   }
 
   test_func(pointer='') {
-    console.log('TEST');
+    console.log(output);
     return true;
   }
 }
 
-test = new test;
-export default test;
+
+
+/**
+ * init and export
+ */
+globalThis.server['classes'].test = new test;
+export default globalThis.server['classes'].test;

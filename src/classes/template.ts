@@ -5,6 +5,8 @@ import output from "~classes/output";
 
 /**
  * //class
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class template {
 
@@ -41,5 +43,9 @@ return true;
  */
 }
 
-template = new template;//todo do we want to init class here or in the calling file?
-export default template;
+
+/**
+ * init and export
+ */
+globalThis.server['classes'].template = new template;
+export default globalThis.server['classes'].template;

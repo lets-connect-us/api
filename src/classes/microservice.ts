@@ -4,6 +4,8 @@ import csrf from '~classes/csrf';
 
 /**
  * //class to call a microservice
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class microservice {
 
@@ -129,8 +131,12 @@ try {
  */
 }
 
-microservice = new microservice;
-export default microservice;
+
+/**
+ * init and export
+ */
+globalThis.server['classes'].microservice = new microservice;
+export default globalThis.server['classes'].microservice;
 
 /**
  * 

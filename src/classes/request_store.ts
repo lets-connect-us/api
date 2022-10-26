@@ -4,6 +4,8 @@ import sanitize from '~classes/sanitize';
 
 /**
  * //class to store and handle output
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class request_store {
 
@@ -164,4 +166,10 @@ return ({
  */
 }
 
-export default request_store;
+
+
+/**
+ * init and export
+ */
+globalThis.server['classes'].request_store = new request_store;
+export default globalThis.server['classes'].request_store;

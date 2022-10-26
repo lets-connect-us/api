@@ -3,6 +3,8 @@ import length from '~classes/length';
 
 /**
  * //class to store and handle output
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class output {
 
@@ -146,5 +148,12 @@ return ({
  */
 }
 
-output = new output;
-export default output;
+
+
+/**
+ * init and export
+ *
+globalThis.server['classes'].output = new output;
+export default globalThis.server['classes'].output;
+*/
+module.exports = new output;

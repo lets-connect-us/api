@@ -1,5 +1,7 @@
 /**
  * //class to validate various things
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class validate {
 
@@ -132,5 +134,10 @@ return pazz;
  */
 }
 
-validate = new validate;
-export default validate;
+
+
+/**
+ * init and export
+ */
+globalThis.server['classes'].validate = new validate;
+export default globalThis.server['classes'].validate;

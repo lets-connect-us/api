@@ -1,17 +1,81 @@
-import * as dotenv from "dotenv";
+/**
+ * //class for server constants and other
+ */
+class constants {
+
+/*
+ * set data store
+ */
+//todo public $separator = DIRECTORY_SEPARATOR;
+server_url='';
+error_url='/error/index.php';
+cookie='';
+docroot='';
+webroot='/';
+mail_api_key='';
+remote_addr='';
+internal_hash='';
+old_internal_hash='';
+npm_script='';
+day={};
+settings={};
+style={};
 
 /**
- * reusable error/success messages
+ * //function to construct
  */
-declare var default_messages: Object;
-globalThis.default_messages = {
-	'error': 'Something went terribly wrong.', 
-};
+constructor() {
 
-declare var server: Object;
-globalThis.server = {
-	'last_message': '', 
-	'message_array': [], 
-	'classes': {}, 
-	'routes': {}, 
-};
+/**
+ * setup docroot
+ */
+if (
+	(typeof process != 'undefined')
+	&&
+	(typeof process['mainModule'] != 'undefined')
+	&&
+	(typeof process['mainModule']['path'] == 'string')
+	&&
+	(process['mainModule']['path'])
+){
+	this.docroot = process['mainModule']['path'] + '/';
+}
+
+/**
+ * setup npm script (watch, build, dev, serve, etc)
+ */
+if (
+	(typeof process != 'undefined')
+	&&
+	(typeof process['env'] != 'undefined')
+	&&
+	(typeof process['env']['npm_lifecycle_event'] == 'string')
+	&&
+	(process['env']['npm_lifecycle_event'])
+){
+	this.npm_script = process['env']['npm_lifecycle_event'];
+}
+
+/**
+ * done //function
+ */
+}
+
+
+test(){
+	console.log('TEST Func');
+
+/**
+ * done //function
+ */
+}
+
+/**
+ * done //class
+ */
+}
+
+/**
+ * export
+ */
+module.exports = new constants;

@@ -4,6 +4,8 @@ dotenv.config();
 
 /**
  * //class to get the length of various things
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class length {
 
@@ -219,5 +221,10 @@ return item.length;
  */
 }
 
-length = new length;
-export default length;
+
+
+/**
+ * init and export
+ */
+globalThis.server['classes'].length = new length;
+export default globalThis.server['classes'].length;

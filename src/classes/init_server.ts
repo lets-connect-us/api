@@ -5,6 +5,8 @@ import fs from 'fs';
 
 /**
  * //class
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class init_server {
 
@@ -38,23 +40,19 @@ if (!fs.existsSync('./firebase.env')) {
  * confirm port is set
  */
 if (!process.env.PORT) {
-	console.log('No server port provided.');
+	console.log('No server port was provided so exiting.');
 	process.exit(1);
 }
 
-return true;
-
 /**
- * done //function
+ * confirm port is set
  */
+if (!process.env.ENVIRONMENT) {
+	process.env.ENVIRONMENT = 'dev';
+	console.log('No environment variable set so defualted to dev.');
 }
 
-/**
- * //function 
- */
-test_func(pointer='') {
 
-console.log('TEST');
 return true;
 
 /**
@@ -67,8 +65,9 @@ return true;
  */
 }
 
+
 /**
- * init new class
+ * init and export
  */
-//init_server = new init_server;//todo do we want to init class here or in the calling file?
-export default init_server;
+globalThis.server['classes'].init_server = new init_server;
+export default globalThis.server['classes'].init_server;

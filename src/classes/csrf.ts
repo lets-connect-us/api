@@ -6,6 +6,8 @@ var crypto = require('crypto');
 
 /**
  * //class to handle CSRF security tokens
+ * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
+ * SOLID!
  */
 class csrf {
 
