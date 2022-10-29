@@ -64,7 +64,7 @@ app.use(session({
  */
 app.get('/', (request: Request, result: Response) => {
 
-	console.log(process.env.ENVIRONEMENT);
+	console.log(process.env.PORT);
 	constants.test()
 
 
