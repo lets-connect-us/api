@@ -13,7 +13,7 @@ dotenv.config({ path: 'firebase.env' });
  * //note must be done before any classes/modules
  * //note but must be done after module-alias and dotenv
  */
-var constants = require('~src/constants.inc');
+var constants = require('./constants.inc');
 
 /**
  * init express/app
