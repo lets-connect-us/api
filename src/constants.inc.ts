@@ -63,7 +63,7 @@ if (
 
 
 test(){
-	console.log('TEST Func');
+	console.log(this);
 
 /**
  * done //function
