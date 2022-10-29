@@ -33,8 +33,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("module-alias/register");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-dotenv.config({ path: 'secret.env' });
-dotenv.config({ path: 'firebase.env' });
+dotenv.config({ path: './secret.env' });
+dotenv.config({ path: './firebase.env' });
 /**
  * App Variables
  * //note must be done before any classes/modules
@@ -80,7 +80,8 @@ app.use(session({
  * //debug output some basic content
  */
 app.get('/', (request, result) => {
-    console.log(process.env);
+    console.log(process.env.ENVIRONEMENT);
+    constants.test();
     result.send('Testing');
 });
 /**
