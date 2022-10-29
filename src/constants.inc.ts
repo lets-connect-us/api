@@ -61,7 +61,7 @@ if (
 /**
  * confirm we have secret.env files
  */
-fs.stat('./new-secret.env', (err, stats) => {
+fs.stat('./new-secret.env', (err: Object, stats: Object) => {
 if (err) {
 	let file_content = [];
 	file_content.push(new Date);
