@@ -1,4 +1,4 @@
-const fs = require('fs');
+global.sqlite3 = require('sqlite3');
 
 /**
  * //class for server constants and other
@@ -59,23 +59,29 @@ if (
 }
 
 /**
- * confirm we have secret.env files
+ * confirm we have required .env vars
  */
-fs.stat('./new-secret.env', (err: Object, stats: Object) => {
-if (err) {
-	let file_content = [];
-	file_content.push(new Date);
-	file_content.push(this.npm_script);
-	file_content.push(this.docroot);
-	console.log(file_content);
-try {
-  fs.writeFileSync('./new-secret.env', 'test');
-  // file written successfully
-} catch (err) {
-  console.error(err);
+if (
+	(typeof process == 'undefined')
+	||
+	(typeof process['env'] == 'undefined')
+	||
+	(typeof process['env']['ENVIRONMENT'] != 'string')
+	||
+	(!process['env']['ENVIRONMENT'])
+	||
+	(typeof process['env']['SECRET'] != 'string')
+	||
+	(!process['env']['SECRET'])
+	||
+	(typeof process['env']['SESSION_SECRET'] != 'string')
+	||
+	(!process['env']['SESSION_SECRET'])
+){
+	console.log('Environment variables are not set.');
+	process.exit(1);
 }
-}
-});
+
 
 /**
  * done //function
