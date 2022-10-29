@@ -49,6 +49,10 @@ dist
 dist/
 **/dist/*
 **/dist
+prod
+prod/
+**/prod
+**/prod/*
 
 # Dependency directories/files
 composer
