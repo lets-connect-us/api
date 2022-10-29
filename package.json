@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "start": "node ./prod/index.js",
-    "build": "npm install --omit=dev; tsc -p .",
+    "build": "npm install; tsc -p .",
     "watch": "ts-node-dev --respawn --pretty --transpile-only src/index.ts"
   },
   "license": "MIT",
