@@ -64,7 +64,7 @@ app.use(session({
  */
 app.get('/', (request: Request, result: Response) => {
 
-	console.log(constants);
+	console.log(process.env.ENVIRONEMENT);
 	constants.test()
 
 
