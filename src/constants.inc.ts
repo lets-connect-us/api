@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 /**
  * //class for server constants and other
  */
@@ -55,6 +57,25 @@ if (
 ){
 	this.npm_script = process['env']['npm_lifecycle_event'];
 }
+
+/**
+ * confirm we have secret.env files
+ */
+fs.stat('./new-secret.env', (err, stats) => {
+if (err) {
+	let file_content = [];
+	file_content.push(new Date);
+	file_content.push(this.npm_script);
+	file_content.push(this.docroot);
+	console.log(file_content);
+try {
+  fs.writeFileSync('./new-secret.env', 'test');
+  // file written successfully
+} catch (err) {
+  console.error(err);
+}
+}
+});
 
 /**
  * done //function
