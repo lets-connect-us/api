@@ -5,8 +5,8 @@
 import 'module-alias/register';
 import * as dotenv from "dotenv";
 dotenv.config();
-dotenv.config({ path: 'secret.env' });
-dotenv.config({ path: 'firebase.env' });
+dotenv.config({ path: './secret.env' });
+dotenv.config({ path: './firebase.env' });
 
 /**
  * App Variables
@@ -64,7 +64,8 @@ app.use(session({
  */
 app.get('/', (request: Request, result: Response) => {
 
-	console.log(process.env);
+	console.log(constants);
+	constants.test()
 
 
 	result.send('Testing');
