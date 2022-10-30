@@ -79,6 +79,9 @@ if (
 	(!process['env']['SESSION_SECRET'])
 ){
 	console.log('Environment variables are not set.');
+	console.log(process['env']['SESSION_SECRET']);
+	console.log(process['env']['SECRET']);
+	console.log(process['env']['ENVIRONMENT']);
 	process.exit(1);
 }
 
