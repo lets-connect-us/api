@@ -80,7 +80,7 @@ app.use(session({
  * //debug output some basic content
  */
 app.get('/', (request, result) => {
-    console.log(process.env.ENVIRONEMENT);
+    console.log(process.env.PORT);
     constants.test();
     result.send('Testing');
 });

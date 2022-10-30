@@ -1,4 +1,4 @@
-global.sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3');
 
 /**
  * //class for server constants and other
