@@ -47,7 +47,7 @@ var length = require('~classes/length');
  */
 var migrate_database = require('./migrate_database');
 var db = require('~classes/db.sqlite');
-db.connect({'db_file' : './calendar.db'});
+db.connect({'db_file' : './calendars.db'});
 migrate_database.run({
 	'connection' : db.connect({'db_file' : './calendars.db'}), 
 	'name' : 'calendars', 
