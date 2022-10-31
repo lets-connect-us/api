@@ -77,9 +77,9 @@
     "winston": "^3.8.2"
   },
   "_moduleAliases": {
-    "~classes": "./classes",
-    "~common": "./common",
-    "~routes": "./routes",
-    "~src": "."
+    "~classes": "./src/classes",
+    "~common": "./src/common",
+    "~routes": "./src/routes",
+    "~src": "./"
   }
 }

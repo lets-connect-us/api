@@ -37,6 +37,21 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var crypto = require('crypto');
 
+/**
+ * classes and internal modules
+ */
+var length = require('~classes/length');
+
+/**
+ * database setup
+ */
+var migrate_database = require('./migrate_database');
+var db = require('~classes/db.sqlite');
+db.connect({'db_file' : './calendar.db'});
+migrate_database.run({
+	'connection' : db.connect({'db_file' : './calendars.db'}), 
+	'name' : 'calendars', 
+});
 
 /**
  * setup Express app
@@ -64,11 +79,37 @@ app.use(session({
  */
 app.get('/', (request: Request, result: Response) => {
 
-	console.log(process.env.PORT);
-	constants.test()
+/**
+ * insert new entry
+ */
+let tmp = new Date().toString();
+db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, 
+    [],
+    function(error){
+		if (
+			(error)
+			&&
+			(typeof error['message'] == 'string')
+		){
+			console.log('Error adding new date entry:' + error['message']);
+		}
+    }
+);
 
+/**
+ * select all and build output
+ */
+const output = [];
+db['connections']['calendarsdb'].all("SELECT * FROM store",
+    (error, query_result) => {
+		for (let key in query_result){
+			console.log(query_result[ key ]);
+			output.push('<p>' + query_result[ key ]['id'] + ': ' + query_result[ key ]['json'] + '</p>');
+		}
+		result.send(output.join(''));
+    }
+);
 
-	result.send('Testing');
 });
 
 /**
