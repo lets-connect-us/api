@@ -45,7 +45,7 @@ this.connection.exec(query, (err) => {
 	if (
 		(err) 
 		&&
-		(typeof err == 'oject')
+		(typeof err == 'object')
 		&&
 		(typeof err['message'] == 'string')
 		&&

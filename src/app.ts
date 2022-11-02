@@ -83,7 +83,7 @@ app.get('/', (request: Request, result: Response) => {
 let tmp = new Date().toString();
 db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, 
     [],
-    function(error){
+    function(error: {'message': String}){
 		if (
 			(error)
 			&&
@@ -97,13 +97,14 @@ db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json"
 /**
  * select all and build output
  */
-const output = [];
 db['connections']['calendarsdb'].all("SELECT * FROM store",
-    (error, query_result) => {
-		for (let key in query_result){
-			console.log(query_result[ key ]);
-			output.push('<p>' + query_result[ key ]['id'] + ': ' + query_result[ key ]['json'] + '</p>');
-		}
+    (error: {'message': String}, query_result: Array<{'id': string, 'json': string}>) => {
+		const output: Array<String> = [];
+		Object.entries(query_result).forEach(([key, value], index) => {
+		//for (let key in query_result){
+			console.log(query_result[ index ]);
+			output.push('<p>' + query_result[ index ].id + ': ' + query_result[ index ]['json'] + '</p>');
+		});
 		result.send(output.join(''));
     }
 );
