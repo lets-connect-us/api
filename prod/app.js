@@ -50,13 +50,25 @@ const app = express();
  * for some reason sqlite has to be required here rather than in the class
  * for some reason bluebird has to be required here rather than in the class
  */
-//global.sqlite3 = require('sqlite3');
-//global.Promise = require('bluebird');
 var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var crypto = require('crypto');
+/**
+ * classes and internal modules
+ */
+var length = require('~classes/length');
+/**
+ * database setup
+ */
+var migrate_database = require('./migrate_database');
+var db = require('~classes/db.sqlite');
+db.connect({ 'db_file': './calendars.db' });
+migrate_database.run({
+    'connection': db.connect({ 'db_file': './calendars.db' }),
+    'name': 'calendars',
+});
 /**
  * setup Express app
  */
@@ -80,9 +92,29 @@ app.use(session({
  * //debug output some basic content
  */
 app.get('/', (request, result) => {
-    console.log(process.env.PORT);
-    constants.test();
-    result.send('Testing');
+    /**
+     * insert new entry
+     */
+    let tmp = new Date().toString();
+    db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, [], function (error) {
+        if ((error)
+            &&
+                (typeof error['message'] == 'string')) {
+            console.log('Error adding new date entry:' + error['message']);
+        }
+    });
+    /**
+     * select all and build output
+     */
+    db['connections']['calendarsdb'].all("SELECT * FROM store", (error, query_result) => {
+        const output = [];
+        Object.entries(query_result).forEach(([key, value], index) => {
+            //for (let key in query_result){
+            console.log(query_result[index]);
+            output.push('<p>' + query_result[index].id + ': ' + query_result[index]['json'] + '</p>');
+        });
+        result.send(output.join(''));
+    });
 });
 /**
  * export app

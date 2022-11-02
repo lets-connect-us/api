@@ -1,4 +1,3 @@
-const sqlite3 = require('sqlite3');
 /**
  * //class to get the length of various things
  * //note everything in /classes is a singleton. Nothing request/user data is stored in singletons, only enviro/config data
