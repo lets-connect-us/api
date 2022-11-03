@@ -26,7 +26,7 @@ get_query(){
 /**
  * init allowed_tags from settings file
  */
-this.sql_queries = require('./migrate_database-calendars');
+this.sql_queries = require('~src/migrate_database-calendars');
 this.exec_queries();
 
 /**
