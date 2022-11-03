@@ -29,6 +29,8 @@ const app = express();
  * for some reason sqlite has to be required here rather than in the class
  * for some reason bluebird has to be required here rather than in the class
  */
+//global.sqlite3 = require('sqlite3');
+//global.Promise = require('bluebird');
 var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
 var session = require('express-session');
@@ -45,7 +47,7 @@ var length = require('~classes/length');
  */
 var migrate_database = require('~classes/migrate_database');
 var db = require('~classes/db.sqlite');
-db.connect({'db_file' : './calendars.db'});
+db.connect({'db_file' : './calendar.db'});
 migrate_database.run({
 	'connection' : db.connect({'db_file' : './calendars.db'}), 
 	'name' : 'calendars', 
