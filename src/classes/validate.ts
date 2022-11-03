@@ -139,5 +139,4 @@ return pazz;
 /**
  * init and export
  */
-globalThis.server['classes'].validate = new validate;
-export default globalThis.server['classes'].validate;
+module.exports = new validate;
