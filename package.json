@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "//todo", 
-    "watch": "nodemon ./src/index.js"
+    "watch": "nodemon ./src/index.js", 
+    "build": "npm i", 
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
