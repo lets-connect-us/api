@@ -2,6 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "Connect-Us API",
+  "main": "index.js", 
   "scripts": {
     "test": "//todo", 
     "watch": "nodemon ./src/index.js", 
@@ -38,9 +39,9 @@
     "winston": "^3.8.2"
   },
   "_moduleAliases": {
-    "~classes": "./src/classes",
-    "~common": "./src/common",
-    "~routes": "./src/routes",
+    "~classes": "src/classes",
+    "~common": "src/common",
+    "~routes": "src/routes",
     "~src": "./"
   }
 }
