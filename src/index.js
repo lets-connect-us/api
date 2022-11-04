@@ -1,8 +1,8 @@
 /**
- * directory alieases 
+ * setup __src
  * and environment config
  */
-require('module-alias/register');
+global.__src = __dirname;
 var dotenv = require('dotenv');
 dotenv.config();
 dotenv.config({ path: './secret.env' });
