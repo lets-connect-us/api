@@ -71,6 +71,16 @@ app.use(session({
 }));
 
 /**
+ * handle /calendar routes
+ */
+app.post('/calendar/update_url', (request, result) => {
+	var route = require("~routes/calendar-update_url");
+	route.request = request;
+	route.result = result;
+	route.run();
+});
+
+/**
  * //debug output some basic content
  */
 app.get('/', (request, result) => {
