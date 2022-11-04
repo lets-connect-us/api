@@ -1,4 +1,17 @@
-import app from "./app";
+/**
+ * directory alieases 
+ * and environment config
+ */
+require('module-alias/register');
+var dotenv = require('dotenv');
+dotenv.config();
+dotenv.config({ path: './secret.env' });
+//dotenv.config({ path: './firebase.env' });
+
+/**
+ * import modules
+ */
+var app = require('./app');
 
 
 /**
@@ -21,4 +34,4 @@ const server = app.listen(app.get("port"), () => {
     console.log("  Press CTRL-C to stop\n");
 });
 
-export default server;
+module.exports = server;
