@@ -89,30 +89,9 @@ app.post('/calendar/update_url', (request, result) => {
  */
 app.get('/', (request, result) => {
 
-
-const directoryPath = path.join(__dirname, 'classes');
-//passsing directoryPath and callback function
-fs.readdir(directoryPath, function (err, files) {
-    //handling error
-    if (err) {
-        return console.log('Unable to scan directory: ' + err);
-    } 
-    //listing all files using forEach
-    files.forEach(function (file) {
-        // Do whatever you want to do with the file
-        console.log(file); 
-    });
-});
-
-
-/**
- * //debug send result
- */
-result.send('Hewow Woorld');
-
 /**
  * insert new entry
- *
+ */
 let tmp = new Date().toString();
 db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, 
     [],
@@ -129,7 +108,7 @@ db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json"
 
 /**
  * select all and build output
- *
+ */
 const output = [];
 db['connections']['calendarsdb'].all("SELECT * FROM store",
     (error, query_result) => {
