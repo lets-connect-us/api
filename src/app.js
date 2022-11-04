@@ -4,7 +4,7 @@
  */
 require('module-alias/register');
 var dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({ path: './.env' });
 dotenv.config({ path: './secret.env' });
 //dotenv.config({ path: './firebase.env' });
 
@@ -13,7 +13,7 @@ dotenv.config({ path: './secret.env' });
  * //note must be done before any classes/modules
  * //note but must be done after module-alias and dotenv
  */
-//var constants = require('./constants.inc');
+var constants = require(__dirname + '/constants.inc');
 
 /**
  * init express/app
@@ -42,7 +42,7 @@ var crypto = require('crypto');
 /**
  * database setup
  */
-var db = require('~classes/db.sqlite');
+var db = require(constants['docroot'] + '/classes/db.sqlite');
 var migrate_database = require('./migrate_database');
 migrate_database.run({
 	'connection' : db.connect({'db_file' : './calendars.db'}), 
