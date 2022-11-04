@@ -2,7 +2,6 @@
   "name": "api",
   "version": "1.0.0",
   "description": "Connect-Us API",
-  "main": "index.js",
   "scripts": {
     "test": "//todo", 
     "watch": "nodemon ./src/index.js", 
