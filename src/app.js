@@ -41,7 +41,7 @@ var crypto = require('crypto');
 
 /**
  * database setup
- */
+ *
 var db = require(__dirname + '/classes/db.sqlite');
 var migrate_database = require('./migrate_database');
 migrate_database.run({
@@ -85,9 +85,12 @@ app.post('/calendar/update_url', (request, result) => {
  */
 app.get('/', (request, result) => {
 
+console.log(__dirname);
+result.send('Hewow Woorld');
+
 /**
  * insert new entry
- */
+ *
 let tmp = new Date().toString();
 db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, 
     [],
@@ -104,7 +107,7 @@ db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json"
 
 /**
  * select all and build output
- */
+ *
 const output = [];
 db['connections']['calendarsdb'].all("SELECT * FROM store",
     (error, query_result) => {
