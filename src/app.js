@@ -23,6 +23,10 @@ var cors = require("cors");
 var helmet = require("helmet");
 const app = express();
 
+//requiring path and fs modules
+const path = require('path');
+const fs = require('fs');
+
 /**
  * Required External Modules
  * for some reason sqlite has to be required here rather than in the class
@@ -85,7 +89,25 @@ app.post('/calendar/update_url', (request, result) => {
  */
 app.get('/', (request, result) => {
 
-console.log(__dirname);
+
+const directoryPath = path.join(__dirname, 'classes');
+//passsing directoryPath and callback function
+fs.readdir(directoryPath, function (err, files) {
+    //handling error
+    if (err) {
+        return console.log('Unable to scan directory: ' + err);
+    } 
+    //listing all files using forEach
+    files.forEach(function (file) {
+        // Do whatever you want to do with the file
+        console.log(file); 
+    });
+});
+
+
+/**
+ * //debug send result
+ */
 result.send('Hewow Woorld');
 
 /**
