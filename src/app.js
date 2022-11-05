@@ -118,7 +118,6 @@ const output = [];
 db['connections']['calendarsdb'].all("SELECT * FROM store",
     (error, query_result) => {
 		for (let key in query_result){
-			console.log(query_result[ key ]);
 			output.push('<p>' + query_result[ key ]['id'] + ': ' + query_result[ key ]['json'] + '</p>');
 		}
 		result.send(output.join(''));

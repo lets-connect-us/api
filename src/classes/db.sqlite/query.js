@@ -35,7 +35,14 @@ if (typeof values['query'] != 'string'){
 	return false;
 }
 
+return true;
+
 /**
  * done //function
  */
 }
+
+/**
+ * export
+ */
+module.exports = query;
