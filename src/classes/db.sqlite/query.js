@@ -10,6 +10,21 @@
 function query(values={}){
 
 /**
+ * confirm we have data
+ */
+if (typeof values != 'object'){
+	console.log('Incorrect arguments provided.');
+	return false;
+}
+
+/**
+ * get DB connection
+ */
+if (typeof values['connection'] == 'string'){
+	
+}
+
+/**
  * done //function
  */
 }
