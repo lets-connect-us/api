@@ -93,7 +93,12 @@ app.get('/', (request, result) => {
  * insert new entry
  */
 let tmp = new Date().toString();
-db['connections']['calendarsdb'].run(`INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`, 
+tmp = `INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`;
+db.query({
+	'connection': 'calendarsdb', 
+	'query': tmp, 
+})
+db['connections']['calendarsdb'].run(tmp, 
     [],
     function(error){
 		if (
@@ -113,7 +118,6 @@ const output = [];
 db['connections']['calendarsdb'].all("SELECT * FROM store",
     (error, query_result) => {
 		for (let key in query_result){
-			console.log(query_result[ key ]);
 			output.push('<p>' + query_result[ key ]['id'] + ': ' + query_result[ key ]['json'] + '</p>');
 		}
 		result.send(output.join(''));
