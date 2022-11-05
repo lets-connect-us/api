@@ -9,6 +9,10 @@ module.exports = {
 	'connect' : require('./connect'), 
 	'load_settings_from_file' : require('./load_settings_from_file'), 
 
+/**
+ * //function to exec an SQL query
+ */
+	'query' : require('./query'), 
 
 /**
  * done //class
