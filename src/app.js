@@ -49,7 +49,7 @@ var crypto = require('crypto');
 var db = require(__src + '/classes/db.sqlite/index');
 var migrate_database = require(__src + '/migrate_database');
 migrate_database.run({
-	'connection' : db.connect({'db_file' : __src + '/calendars.db'}), 
+	'connection' : db.connect({'db_file' : __src + '/../calendars.db'}), 
 	'name' : 'calendars', 
 });
 
