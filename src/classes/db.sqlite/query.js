@@ -21,7 +21,18 @@ if (typeof values != 'object'){
  * get DB connection
  */
 if (typeof values['connection'] == 'string'){
-	
+if (this.connections[ values['connection'] ]){
+	values['connection'] = this.connections[ values['connection'] ];
+}
+}
+console.log(values);
+
+/**
+ * get DB connection
+ */
+if (typeof values['query'] != 'string'){
+	console.log('Invalid DB query provided.');
+	return false;
 }
 
 /**
