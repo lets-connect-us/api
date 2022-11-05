@@ -50,8 +50,12 @@ if (
 /**
  * create connection object key to cache connections
  */
-let connection_key = db_file.toLowerCase;
-connection_key = db_file.replace(/[^a-z]+/gi, "");
+let connection_key = db_file.toLowerCase();
+if (connection_key.indexOf('/') != -1){
+	connection_key = connection_key.split('/');
+	connection_key = connection_key[ connection_key.length-1 ];
+}
+connection_key = connection_key.replace(/[^a-z]+/gi, "");
 
 /**
  * check if we're already connected based on connection key
