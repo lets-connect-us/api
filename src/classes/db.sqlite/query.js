@@ -25,7 +25,14 @@ if (this.connections[ values['connection'] ]){
 	values['connection'] = this.connections[ values['connection'] ];
 }
 }
-console.log(values);
+if (
+	(typeof values['connection'] != 'object')
+	||
+	(typeof values['connection'].run != 'function')
+){
+	console.log('invalid DB connection provided.');
+	return false;
+}
 
 /**
  * get DB connection
