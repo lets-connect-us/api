@@ -29,8 +29,6 @@ const fs = require('fs');
 
 /**
  * Required External Modules
- * for some reason sqlite has to be required here rather than in the class
- * for some reason bluebird has to be required here rather than in the class
  */
 var cookie_parser = require('cookie-parser');
 var body_parser = require('body-parser');
@@ -46,12 +44,7 @@ var crypto = require('crypto');
 /**
  * database setup
  */
-var db = require(__src + '/classes/db.sqlite/index');
-var migrate_database = require(__src + '/migrate_database');
-migrate_database.run({
-	'connection' : db.connect({'db_file' : __src + '/../calendars.db'}), 
-	'name' : 'calendars', 
-});
+var db = require(__src + '/classes/db.mongo/index');
 
 /**
  * setup Express app
@@ -94,35 +87,13 @@ app.get('/', (request, result) => {
  */
 let tmp = new Date().toString();
 tmp = `INSERT INTO "store" ("unique_hash", "json") VALUES ('test', '{"test": "` + tmp + `"}');`;
-db.query({
-	'connection': 'calendarsdb', 
-	'query': tmp, 
-})
-db['connections']['calendarsdb'].run(tmp, 
-    [],
-    function(error){
-		if (
-			(error)
-			&&
-			(typeof error['message'] == 'string')
-		){
-			console.log('Error adding new date entry:' + error['message']);
-		}
-    }
-);
+
+db.query();
 
 /**
- * select all and build output
+ * output something
  */
-const output = [];
-db['connections']['calendarsdb'].all("SELECT * FROM store",
-    (error, query_result) => {
-		for (let key in query_result){
-			output.push('<p>' + query_result[ key ]['id'] + ': ' + query_result[ key ]['json'] + '</p>');
-		}
-		result.send(output.join(''));
-    }
-);
+result.send('TESTING!!!');
 
 /**
  * done function
