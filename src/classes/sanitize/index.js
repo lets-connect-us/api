@@ -8,7 +8,12 @@ module.exports = {
 /**
  * //function to sanitize a url (string)
  */
-'url' : require('./url'), 
+'url': require('./url'), 
+
+/**
+ * //function to sanitize alphanumeric/hashes
+ */
+'alphanumeric': require('./alphanumeric'), 
 
 /**
  * done //class

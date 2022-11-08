@@ -53,6 +53,32 @@ if (
 		'-' +
 		crypto.createHash('md5').update(this.request['body']['url'] + this.request['body']['free_busy_only']).digest("hex");
 }
+this.request['body']['unique_id'] = sanitize.alphanumeric(this.request['body']['unique_id']);
+if (
+	(typeof this.request['body']['unique_id'] != 'string')
+	||
+	(!this.request['body']['unique_id'])
+){
+	this.return['message']['error'].push('A URL unique ID is required but is not set.');
+	this.result.send(this.return);
+}
+
+/**
+ * check for required vars now that we've sanitized them
+ * no point going further if a necessary vars are not set
+ */
+if (
+	(!this.request['session']['user_id'])
+	||
+	(!this.request['body']['url'])
+	||
+	(typeof this.request['body']['free_busy_only'] == 'undefined')
+	||
+	(!this.request['body']['unique_id'])
+){
+	this.return['message']['error'].push('A required field is not set.');
+	this.result.send(this.return);
+}
 
 return this.next();
 
