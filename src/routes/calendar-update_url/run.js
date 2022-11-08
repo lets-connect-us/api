@@ -3,10 +3,29 @@
  */
 function run(){
 
-console.log(this);
+/**
+ * ensure we have required args
+ */
+if (
+	(typeof this != 'object')
+	||
+	(typeof this.request != 'object')
+	||
+	(typeof this.result != 'object')
+	||
+	(typeof this.result.send != 'function')
+){
+	console.log(require(__src + '/classes/default_error_message'));
+	process.exit();
+}
 
 /**
- * dne //function
+ * return & run next function
+ */
+return this.sanitize();
+
+/**
+ * done //function
  */
 }
 

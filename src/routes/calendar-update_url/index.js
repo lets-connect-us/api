@@ -13,13 +13,17 @@ module.exports = {
 /**
  * //function to init to perform any init before run
  */
-	'init' : require('./init'), 
+	'init' : require(__src + '/classes/default_route_init'), 
 
 /**
  * //function to start/run on request
  */
 	'run' : require('./run'), 
 
+/**
+ * //function to sanitize inputs
+ */
+	'sanitize': require('./sanitize'), 
 
 /**
  * done //class

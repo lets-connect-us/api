@@ -4,10 +4,8 @@
  * SOLID!
  */
 module.exports = {
-	'db_file' : '', 
-	'connections' : {}, 
+	'connection' : {}, 
 	'connect' : require('./connect'), 
-	'load_settings_from_file' : require('./load_settings_from_file'), 
 
 /**
  * //function to exec an SQL query
