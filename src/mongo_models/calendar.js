@@ -1,13 +1,14 @@
 /**
  * Required External Modules
- * for some reason sqlite has to be required here rather than in the class
- * for some reason bluebird has to be required here rather than in the class
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * build mongo schema
+ */
 const calendar_schema = new Schema({
-	'unique_id': String, //hash of user+url?
+	'unique_id': { type: String, 'required': true, 'unique': true }, //hash of user+url?
 	'user_id': String, 
 	'url': String, 
 	'free_busy_only': Boolean, 

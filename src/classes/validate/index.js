@@ -4,11 +4,12 @@
  * SOLID!
  */
 module.exports = {
-	'db_file' : '', 
-	'connections' : {}, 
-	'connect' : require('./connect'), 
-	'load_settings_from_file' : require('./load_settings_from_file'), 
 
+
+/**
+ * //function to start/run on request
+ */
+	'url' : require('./url'), 
 
 /**
  * done //class

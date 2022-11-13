@@ -21,9 +21,26 @@ module.exports = {
 	'run' : require('./run'), 
 
 /**
+ * //function to check required/optional inputs
+ */
+	'check_input_arguments' : require(__src + '/classes/check_input_arguments'), 
+
+/**
  * //function to sanitize inputs
  */
 	'sanitize': require('./sanitize'), 
+
+
+/**
+ * //function to validate inputs
+ */
+	'validate': require('./validate'), 
+
+
+/**
+ * //function to execute DB
+ */
+	'exec_db': require('./exec_db'), 
 
 /**
  * done //class

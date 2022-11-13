@@ -1,4 +1,7 @@
-
+/**
+ * import external modules
+ */
+var mongoose = require('mongoose');
 
 /**
  * //function to start/run route
@@ -21,7 +24,7 @@ this.next();
 this.result.send(this.return);
 
 /**
- * dne //function
+ * done //function
  */
 }
 

@@ -40,6 +40,7 @@ var crypto = require('crypto');
  * database setup
  */
 var db = require(__src + '/classes/db.mongo/index');
+db.connect();
 
 /**
  * setup Express app
@@ -84,6 +85,7 @@ let route = require(__src + '/routes/calendar-update_url');
 route.request = request;
 route.result = result;
 route.init();
+
 /**
  * run route
  * and output error on failure

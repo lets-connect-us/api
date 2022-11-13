@@ -9,12 +9,9 @@ const crypto = require('crypto');
 function sanitize () {
 
 /**
- * default return and next function for if there's an error
+ * default next()
  */
-this.next = () => {
-	this.result.send(this.return);
-	return true;
-}
+this.next = this.validate;
 
 /**
  * import sanitize
@@ -42,6 +39,7 @@ if (this.request['body']['free_busy_only'] == '0junk'){
 /**
  * //input_optional POST[unique_id]
  * if not set then we create a new entry
+ * //leftoff can we create here or do we have to wait until insert and allow DB to return?
  */
 if (
 	(typeof this.request['body']['unique_id'] != 'string')
@@ -60,7 +58,7 @@ if (
 	(!this.request['body']['unique_id'])
 ){
 	this.return['message']['error'].push('A URL unique ID is required but is not set.');
-	this.result.send(this.return);
+	this.next = require(__src + '/classes/default_route_return');
 }
 
 /**
@@ -77,13 +75,12 @@ if (
 	(!this.request['body']['unique_id'])
 ){
 	this.return['message']['error'].push('A required field is not set.');
-	this.result.send(this.return);
+	this.next = require(__src + '/classes/default_route_return');
 }
 
 /**
- * //leftoff set next to validate and run
+ * return validate
  */
-
 return this.next();
 
 /**
