@@ -3,12 +3,14 @@
  * //note everything in /routes is loaded on each route/request and passes around a values{} object with all necessary data
  * SOLID!
  */
-class update_url {
+class get_events {
+
+current_timestamp=0;
 
 /**
  * //function to init to perform any init before run
  */
-	'init' = require(__src + '/classes/default_route_init'); 
+	'init' = require('./init'); 
 
 /**
  * //function to start/run on request
@@ -21,28 +23,20 @@ class update_url {
 	'check_input_arguments' = require(__src + '/classes/check_input_arguments'); 
 
 /**
- * //function to start/run on request
+ * //function to sanitize inputs
  */
 	'sanitize' = require('./sanitize'); 
 
 /**
- * //function to start/run on request
+ * //function to sanitize inputs
  */
-	'validate' = require('./validate'); 
+	'get_and_parse_ics' = require('./get_and_parse_ics'); 
 
-/**
- * //function to start/run on request
- */
-	'exec_db' = require('./exec_db'); 
 
-/**
- * //function to start/run on request
- */
-	'output' = require('./output'); 
 
 /**
  * done //class
  */
 }
 
-module.exports = update_url;
+module.exports = get_events;

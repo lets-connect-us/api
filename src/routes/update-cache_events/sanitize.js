@@ -1,7 +1,7 @@
 /**
  * import external modules
  */
-const crypto = require('crypto');
+const microservices = require(__src + '/classes/microservices/index');
 const validate=require('./validate');
 
 /**
@@ -38,27 +38,14 @@ if (values['request']['body']['free_busy_only'] == '0junk'){
 }
 
 /**
- * //input_optional POST[calendar_id]
- * if not set then we create a new entry
- * //leftoff can we create here or do we have to wait until insert and allow DB to return?
+ * //input_optional POST[hash]
  */
 if (
-	(typeof values['request']['body']['calendar_id'] != 'string')
+	(typeof values['request']['body']['hash'] != 'string')
 	||
-	(!values['request']['body']['calendar_id'])
+	(!values['request']['body']['hash'])
 ){
-	values['request']['body']['calendar_id'] = 
-		values['request']['session']['user_id'] +
-		'-' +
-		crypto.createHash('md5').update(values['request']['body']['url'] + values['request']['body']['free_busy_only']).digest("hex");
-}
-values['request']['body']['calendar_id'] = sanitize.alphanumeric(values['request']['body']['calendar_id']);
-if (
-	(typeof values['request']['body']['calendar_id'] != 'string')
-	||
-	(!values['request']['body']['calendar_id'])
-){
-	values['return']['message']['error'].push('A URL calendar ID is required but is not set.');
+	values['return']['message']['error'].push('A required field is not set.');
 	values.next = require(__src + '/classes/default_route_return');
 }
 
@@ -67,13 +54,11 @@ if (
  * no point going further if a necessary vars are not set
  */
 if (
-	(!values['request']['session']['user_id'])
-	||
 	(!values['request']['body']['url'])
 	||
 	(typeof values['request']['body']['free_busy_only'] == 'undefined')
 	||
-	(!values['request']['body']['calendar_id'])
+	(!values['request']['body']['hash'])
 ){
 	values['return']['message']['error'].push('A required field is not set.');
 	values.next = require(__src + '/classes/default_route_return');

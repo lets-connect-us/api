@@ -1,7 +1,8 @@
 /**
  * require external modules
  */
-const exec_db=require('./exec_db');
+const get_and_parse_ics = require('./get_and_parse_ics');
+const microservices=require(__src + '/classes/microservices/index');
 
 /**
  * //function to validate inputs
@@ -11,7 +12,7 @@ function validate(values={}){
 /**
  * default return and next function for if there's an error
  */
-values.next = exec_db;
+values.next = get_and_parse_ics;
 
 /**
  * ensure we have something to validate first
@@ -26,17 +27,9 @@ if (
 }
 
 /**
- * validate calendar_id
+ * validate internal_hash
  */
-if (
-	(typeof values['request']['body']['calendar_id'] != 'string')
-	||
-	(!values['request']['body']['calendar_id'])
-	||
-	(values['request']['body']['calendar_id'].length < 30)
-	||
-	(values['request']['body']['calendar_id'].length > 250)
-){
+if (!microservices.is_valid_hash(values['request']['body']['hash'])){
 	values['return']['message']['error'].push('A required field is not set.');
 	values.next = require(__src + '/classes/default_route_return');
 }

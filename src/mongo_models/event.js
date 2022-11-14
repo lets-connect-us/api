@@ -2,7 +2,6 @@
  * Required External Modules
  */
 const mongoose = require('mongoose');
-//const Schema = mongoose.Schema;
 
 /**
  * build mongo schema
@@ -10,10 +9,12 @@ const mongoose = require('mongoose');
 const event_schema = new mongoose.Schema({
 	'event_id': { type: String, 'required': true, 'unique': true }, //hash of user+UID?
 	'user_id': String, 
+	'uid': String, 
 	'calendar_id': String, 
-	'summary': Boolean, 
+	'summary': String, 
 	'timestamp_start' : Number, 
 	'timestamp_end': Number, 
+	'description': String, 
 });
 
 /**

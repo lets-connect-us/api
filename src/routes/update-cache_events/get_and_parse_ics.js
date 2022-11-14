@@ -3,7 +3,7 @@
  */
 const ical2json = require("ical2json");
 const mongoose = require('mongoose');
-const output = require('./output');
+const exec_db = require('./exec_db');
 const sanitize = require(__src + '/classes/sanitize/index');
 
 /**
@@ -14,20 +14,20 @@ async function get_and_parse_ics(values={}){
 /**
  * default next()
  */
-values.next = (values) => {
-	console.log('//todo write next function');
-	console.log(values['return']);
-}
+values.next = exec_db;
 
 /**
  * init return result object
  */
-values['return']['result']={};
+values['events']={};
 
 const response = await fetch(values['request']['body']['url']);
 let body = await response.text();
+body = body.replace(/@|.com/g, '');//remove @ so no emails in any of the data and hopefully reduce spam
 body = ical2json.convert(body);
 //leftoff if body != 'object' or != [VCALENDAR]
+
+console.log(values['request']['body']);
 
 /**
  * loop through events and parse
@@ -43,13 +43,14 @@ for (let key in body['VCALENDAR'][0]['VEVENT']){
 	}
 	
 	var tmp = {
-		'_id' : body['VCALENDAR'][0]['VEVENT'][ key ]['UID'], 
-		'user_id': '', 
-		'calendar_id': '', 
+		'event_id' : values['request']['body']['calendar_id'] + body['VCALENDAR'][0]['VEVENT'][ key ]['UID'], 
+		'user_id': values['request']['body']['user_id'], 
+		'calendar_id': values['request']['body']['calendar_id'], 
 		'timestamp_start' : sanitize.ics_date_string(body['VCALENDAR'][0]['VEVENT'][ key ]['DTSTART']), 
 		'timestamp_end' : sanitize.ics_date_string(body['VCALENDAR'][0]['VEVENT'][ key ]['DTEND']), 
 		'summary' : body['VCALENDAR'][0]['VEVENT'][ key ]['SUMMARY'] || 'busy', 
-		'description' : body['VCALENDAR'][0]['VEVENT'][ key ]['DESCRIPTION'] || 'busy', 
+		'description' : body['VCALENDAR'][0]['VEVENT'][ key ]['DESCRIPTION'] || '', 
+		'uid': body['VCALENDAR'][0]['VEVENT'][ key ]['UID'] || '', 
 	}
 	if (tmp['timestamp_start']){
 		tmp['timestamp_start'] = Math.round(tmp['timestamp_start'].valueOf() / 1000);
@@ -60,7 +61,14 @@ for (let key in body['VCALENDAR'][0]['VEVENT']){
 	if (tmp['timestamp_end'] < values['current_timestamp']){
 		continue;
 	}
-	values['return']['result'][ tmp['_id'] ] = tmp;
+	if (
+		(values['request']['body']['free_busy_only'])
+		&&
+		(tmp['summary'] != 'free')
+	){
+		tmp['summary']='busy';
+	}
+	values['events'][ tmp['event_id'] ] = tmp;
 }
 
 /**
