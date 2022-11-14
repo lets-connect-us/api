@@ -1,48 +1,48 @@
 /**
  * //class to store and handle sanitize
- * //note everything in /routes is loaded on each route/request and thus stores request/user specific data
+ * //note everything in /routes is loaded on each route/request and passes around a values{} object with all necessary data
  * SOLID!
  */
-module.exports = {
-/**
- * init object store
- */
-	'request' : {}, 
-	'result' : {}, 
+class update_url {
 
 /**
  * //function to init to perform any init before run
  */
-	'init' : require(__src + '/classes/default_route_init'), 
+	'init' = require(__src + '/classes/default_route_init'); 
 
 /**
  * //function to start/run on request
  */
-	'run' : require('./run'), 
+	'run' = require('./run'); 
 
 /**
  * //function to check required/optional inputs
  */
-	'check_input_arguments' : require(__src + '/classes/check_input_arguments'), 
+	'check_input_arguments' = require(__src + '/classes/check_input_arguments'); 
 
 /**
- * //function to sanitize inputs
+ * //function to start/run on request
  */
-	'sanitize': require('./sanitize'), 
-
+	'sanitize' = require('./sanitize'); 
 
 /**
- * //function to validate inputs
+ * //function to start/run on request
  */
-	'validate': require('./validate'), 
-
+	'validate' = require('./validate'); 
 
 /**
- * //function to execute DB
+ * //function to start/run on request
  */
-	'exec_db': require('./exec_db'), 
+	'exec_db' = require('./exec_db'); 
+
+/**
+ * //function to start/run on request
+ */
+	'output' = require('./output'); 
 
 /**
  * done //class
  */
 }
+
+module.exports = update_url;

@@ -1,63 +1,90 @@
 /**
  * import external modules
  */
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const output = require('./output');
 
 /**
  * //function to execute DB query(s)
  */
-async function exec_db(){
+async function exec_db(values={}){
 
 /**
- * get calendar model
+ * default next()
  */
-const calendar_schema = require(__src + '/mongo_models/calendar');
+values.next = output;
+
 
 /**
- * init new model
+ * update existing data
  */
-let new_cal = new calendar_schema({
-	'user_id': this.request['session']['user_id'], 
-	'unique_id': this.request['body']['unique_id'], 
-	'url': this.request['body']['url'], 
-	'free_busy_only': this.request['body']['free_busy_only'], 
-});
-
-/**
- * check if already exists
- */
-var tmp = await calendar_schema.findOne(
-	{'unique_id': this.request['body']['unique_id']}, 
+let new_cal = {
+	'user_id': values['request']['session']['user_id'], 
+	'calendar_id': values['request']['body']['calendar_id'], 
+	'url': values['request']['body']['url'], 
+	'free_busy_only': values['request']['body']['free_busy_only'], 
+};
+let filter = {
+	'calendar_id': values['request']['body']['calendar_id'], 
+}
+var tmp = await calendar_schema.findOneAndUpdate(
+	filter, 
+	new_cal 
 );
-if (tmp){
-	new_cal = new calendar_schema(tmp);
+
+/**
+ * insert if update failed
+ * and get data model
+ * and set success message
+ */
+let success_message = 'Existing calendar URL successfully updated.';
+if (
+	(typeof tmp != 'object')
+	||
+	(!tmp)
+){
+	const calendar_schema = require(__src + '/mongo_models/calendar');
+
+	new_cal = new calendar_schema({
+		'user_id': values['request']['session']['user_id'], 
+		'calendar_id': values['request']['body']['calendar_id'], 
+		'url': values['request']['body']['url'], 
+		'free_busy_only': values['request']['body']['free_busy_only'], 
+	});
+
+	var tmp = await new_cal.save();
+
+	success_message = 'New calendar URL successfully added.';
+}
+
+
+/**
+ * confirm success
+ */
+if (
+	(typeof tmp != 'object')
+	||
+	(typeof tmp['calendar_id'] != 'string')
+	||
+	(tmp['calendar_id'] != values['request']['body']['calendar_id'])
+){
+	values['return']['message']['error'].push('Failed to save changes.');
+	values.next = require(__src + '/classes/default_route_return');
+}else {
+	values['return'].message['success'].push(success_message);
 }
 
 /**
- * add new/changed data
+ * return values.next()
  */
-new_cal['url'] = this.request['body']['url'];
-new_cal['free_busy_only'] = this.request['body']['free_busy_only'];
-
-/**
- * save changes
- */
-new_cal.save(function(error, document) {
-	if (error) console.error(error);
-	console.log(document);
-});
-
-console.log(new_cal.update);
-
-/**
- * //debug
- */
-this.result.send('TEST');
-return true;
+return values.next(values);
 
 /**
  * done //function
  */
 }
 
+/**
+ * export
+ */
 module.exports = exec_db;

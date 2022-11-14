@@ -16,6 +16,11 @@ module.exports = {
 'alphanumeric': require('./alphanumeric'), 
 
 /**
+ * //function to sanitize/convert annoying ICS date strings
+ */
+'ics_date_string': require('./ics_date_string'), 
+
+/**
  * done //class
  */
 }

@@ -1,7 +1,7 @@
 /**
  * //function to re-use for a default init for every route
  */
-function default_route_init() {
+function default_route_init(values={}) {
 
 /**
  * confirm we are an object
@@ -14,14 +14,14 @@ if (typeof this != 'object'){
 /**
  * default return
  */
-if (
-	(typeof this.return != 'object')
-	||
-	(!this.return)
-	||
-	(!Object.keys(this.return).length)
-){
-	this.return = require(__src + '/classes/default_return_object');
+values['return'] = {
+	'success': 0, 
+	'result': {}, 
+	'message': {
+		'error': [], 
+		'info': [], 
+		'success': [], 
+	}
 }
 
 /**
@@ -29,17 +29,22 @@ if (
  * if we have result.send() then do that
  * otherwise default to just return true
  */
-if (typeof this.next != 'function'){
-if (typeof this.result.send == 'function'){
-	this.next = () => {
-		this.result.send(this.return);
+if (typeof values.next != 'function'){
+if (typeof values['result'].send == 'function'){
+	values.next = () => {
+		values['result'].send(values['return']);
 	}
 } else {
-	this.next = () => {
+	values.next = () => {
 		return true;
 	}
 }
 }
+
+/**
+ * return success
+ */
+return values;
 
 
 /**

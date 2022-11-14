@@ -1,6 +1,7 @@
 /**
  * import external modules
  */
+const sanitize = require('./sanitize');
 
 /**
  * //function to start/run route
@@ -10,7 +11,7 @@ function run(values={}){
 /**
  * default next()
  */
-values.next = this.sanitize;
+values.next = sanitize;
 
 /**
  * ensure we have required args
@@ -41,7 +42,7 @@ if (
  */
 if (!this.check_input_arguments({
 		'provided': Object.keys(values['request']['body']), 
-		'required': ['url', 'calendar_id'], 
+		'required': ['url', 'hash', 'user_id', 'calendar_id'], //leftoff
 		'optional': ['name', 'free_busy_only'], 
 	})
 ){

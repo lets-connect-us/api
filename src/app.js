@@ -34,7 +34,8 @@ var crypto = require('crypto');
 /**
  * classes and internal modules
  */
-//var length = require('~classes/length');
+const microservices = require(__src + '/classes/microservices/index.js');
+microservices.is_valid_hash();
 
 /**
  * database setup
@@ -59,7 +60,7 @@ app.use(session({
 	'resave': true, 
 	'saveUninitialized': true, 
     'store': new FileStore({}),
-    'secret': process.env.ENVIRONEMENT + process.env.SESSION_SECRET, 
+    'secret': process.env.ENVIRONMENT + process.env.SESSION_SECRET, 
     'cookie': { maxAge: 3600000, secure: false, httpOnly: true }, 
 }));
 
@@ -82,15 +83,49 @@ app.post('/calendar/update_url', (request, result) => {
  * init route
  */
 let route = require(__src + '/routes/calendar-update_url');
-route.request = request;
-route.result = result;
-route.init();
+route = new route();
+var tmp = {
+	'request': request, 
+	'result': result, 
+	'next':{}, 
+	'return': {}, 
+}
+tmp = route.init(tmp);
 
 /**
  * run route
  * and output error on failure
  */
-if (!route.run()){
+if (!route.run(tmp)){
+	var tmp = require(__src + '/classes/default_return_object');
+	tmp['message']['error'].push('Something went terribly wrong :(');
+	result.send(tmp);
+}
+
+/**
+ * done route
+ */
+});
+app.post('/calendar/get_events', (request, result) => {
+
+/**
+ * init route
+ */
+let route = require(__src + '/routes/calendar-get_events');
+route = new route();
+var tmp = {
+	'request': request, 
+	'result': result, 
+	'next':{}, 
+	'return': {}, 
+}
+tmp = route.init(tmp);
+
+/**
+ * run route
+ * and output error on failure
+ */
+if (!route.run(tmp)){
 	var tmp = require(__src + '/classes/default_return_object');
 	tmp['message']['error'].push('Something went terribly wrong :(');
 	result.send(tmp);
