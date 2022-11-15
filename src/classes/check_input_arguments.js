@@ -71,16 +71,24 @@ for (const key in values['provided']){
 /**
  * check against required
  */
-if (values['required'].indexOf(values['provided'][ key ]) != -1){
+if (
+	(values['required'].length)
+	&&
+	(values['required'].indexOf(values['provided'][ key ]) != -1)
+){
 	delete values['required'][ values['required'].indexOf(values['provided'][ key ]) ];
-	delete values['provided'][ key ];
+	delete values['required'][ key ];
 	continue;
 }
 
 /**
  * check against optional
  */
-if (values['optional'].indexOf(values['provided'][ key ]) != -1){
+if (
+	(values['optional'].length)
+	&&
+	(values['optional'].indexOf(values['provided'][ key ]) != -1)
+){
 	delete values['optional'][ values['optional'].indexOf(values['provided'][ key ]) ];
 	delete values['provided'][ key ];
 	continue;

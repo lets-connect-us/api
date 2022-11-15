@@ -6,23 +6,25 @@
 /**
  * //function to sanatize alphanumeric/hashes
  */
-function alphanumeric(string){
+function alphanumeric(string=''){
 
 /**
  * ensure we have a string
  */
 if (
-	(typeof string != "string")
+	(typeof string == 'undefined')
 	||
-	(!string)
+	(typeof string.toString != 'function')
 ){
-	return "";
+	return '';
 }
+string = string.toString();
 
 /**
  * return sanitized
  */
-return string.replace(/[^a-zA-Z0-9|-|_]+/gi, "");
+string = string.replace('_', '-');
+return string.replace(/[^a-zA-Z0-9|-]/gi, "");
 
 /**
  * done //function

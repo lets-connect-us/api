@@ -6,6 +6,16 @@
 module.exports = {
 
 /**
+ * //function to sanitize alphanumeric/hashes
+ */
+'all_text': require('./all_text'), 
+
+/**
+ * //function to sanitize alphanumeric/hashes
+ */
+'short_text': require('./short_text'), 
+
+/**
  * //function to sanitize a url (string)
  */
 'url': require('./url'), 
