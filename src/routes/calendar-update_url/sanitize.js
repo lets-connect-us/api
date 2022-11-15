@@ -50,7 +50,7 @@ if (
 	values['request']['body']['calendar_id'] = 
 		values['request']['session']['user_id'] +
 		'-' +
-		crypto.createHash('md5').update(values['request']['body']['url'] + values['request']['body']['free_busy_only']).digest("hex");
+		crypto.createHash('md5').update(values['request']['body']['url'] + values['request']['session']['user_id']).digest("hex");
 }
 values['request']['body']['calendar_id'] = sanitize.alphanumeric(values['request']['body']['calendar_id']);
 if (
