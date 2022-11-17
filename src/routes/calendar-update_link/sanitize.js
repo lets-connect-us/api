@@ -40,7 +40,7 @@ if (
 }
 values['request']['body']['calendar_ids'] = values['request']['body']['calendar_ids'].replace(/,/g, '-');
 values['request']['body']['calendar_ids'] = sanitize.alphanumeric(values['request']['body']['calendar_ids']);
-values['request']['body']['calendar_ids'] = values['request']['body']['calendar_ids'].replace(/,,|-/g, ',');
+values['request']['body']['calendar_ids'] = values['request']['body']['calendar_ids'].replace(/,,|\-/g, ',');
 if (
 	(typeof values['request']['body']['calendar_ids'] != 'string')
 	||
@@ -48,6 +48,9 @@ if (
 ){
 	values['return']['message']['error'].push('Calendar IDs are required for this calendar but are not set.');
 	values.next = require(__src + '/classes/default_route_return');
+}
+while (values['request']['body']['calendar_ids'].indexOf(',,') != -1){
+	values['request']['body']['calendar_ids'] = values['request']['body']['calendar_ids'].replace(/,,/g, ',');
 }
 
 /**

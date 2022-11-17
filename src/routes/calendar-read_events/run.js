@@ -42,8 +42,8 @@ if (
  */
 if (!this.check_input_arguments({
 		'provided': Object.keys(values['request']['body']), 
-		'required': ['user_id', 'calendar_id'], 
-		'optional': ['free_busy_only'], 
+		'required': ['link_id'], 
+		'optional': [''], 
 	})
 ){
 	var tmp = require(__src + '/classes/default_error_message');

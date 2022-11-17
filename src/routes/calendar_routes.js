@@ -41,12 +41,12 @@ if (!route.run(tmp)){
 /**
  * /calendar/get_events
  */
-app.post('/calendar/get_events', (request, result) => {
+app.post('/calendar/read_events', (request, result) => {
 
 /**
  * init route
  */
-let route = require(__src + '/routes/calendar-get_events');
+let route = require(__src + '/routes/calendar-read_events');
 route = new route();
 var tmp = {
 	'request': request, 

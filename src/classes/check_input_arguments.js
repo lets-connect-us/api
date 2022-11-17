@@ -77,7 +77,7 @@ if (
 	(values['required'].indexOf(values['provided'][ key ]) != -1)
 ){
 	delete values['required'][ values['required'].indexOf(values['provided'][ key ]) ];
-	delete values['required'][ key ];
+	delete values['provided'][ key ];
 	continue;
 }
 
@@ -103,6 +103,7 @@ if (
  * check if extra arg provided
  */
 if (values['provided'].join('').length > 0){
+	console.log(values['provided']);//debug
 	console.log('Extra input arguments provided.');
 	return false;
 }
@@ -111,6 +112,7 @@ if (values['provided'].join('').length > 0){
  * check if required inputs are met
  */
 if (values['required'].join('').length > 0){
+	console.log(values['required']);//debug
 	console.log('Required input arguments are not met.');
 	return false;
 }
