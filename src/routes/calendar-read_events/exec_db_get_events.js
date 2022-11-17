@@ -26,7 +26,11 @@ let filter = {
 	'calendar_id': values['link_data']['calendar_ids'].split(','), 
 	'timestamp_end': { $gt: ((Date.now()/1000) - 3600) }
 }
-var tmp = await event_schema.find(filter).select('-_id -__v');
+var tmp = ' -_id -__v -user_id -calendar_id ';
+if (values['link_data']['free_busy_only']){
+	var tmp = ' -_id -__v -user_id -calendar_id -summary';
+}
+var tmp = await event_schema.find(filter).select(' -_id -__v -user_id -calendar_id ');
 
 console.log(tmp);
 
